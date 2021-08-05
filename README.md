@@ -40,15 +40,17 @@ client
 |__ public
 |__ src
 |  |__ assets
-|     |__ gridLibrary.scss
+|  |  |__ gridLibrary.scss
 |  |__ components
 |  |__ features
-|     |__ Cart
-|        |__ components
-|        |__ pages
-|     |__ Product
-|        |__ components
-|        |__ pages
+|  |  |__ Cart
+|  |  |  |__ components
+|  |  |  |__ pages
+|  |  |__ Product
+|  |     |__ components
+|  |     |__ pages
+|  |__ App.js
+|  |__ indedx.js
 server
 |__ app
 |  |__ cores
