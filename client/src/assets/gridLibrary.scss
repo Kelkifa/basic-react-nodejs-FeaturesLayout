@@ -1,0 +1,167 @@
+.wide {
+  max-width: 1200px;
+}
+.grid {
+  margin: 0 auto;
+  .row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    column-gap: 8px;
+  }
+  .c-0 {
+    display: none;
+  }
+  .c-1 {
+    grid-column: span 1;
+  }
+  .c-2 {
+    grid-column: span 2;
+  }
+  .c-3 {
+    grid-column: span 3;
+  }
+  .c-4 {
+    grid-column: span 4;
+  }
+  .c-5 {
+    grid-column: span 5;
+  }
+  .c-6 {
+    grid-column: span 6;
+  }
+  .c-7 {
+    grid-column: span 7;
+  }
+  .c-8 {
+    grid-column: span 8;
+  }
+  .c-9 {
+    grid-column: span 9;
+  }
+  .c-10 {
+    grid-column: span 10;
+  }
+  .c-11 {
+    grid-column: span 11;
+  }
+  .c-12 {
+    grid-column: span 12;
+  }
+}
+
+// /** WIDE RESPONSE **/
+// @media screen and (min-width: 740px) and (max-width: 1023px) {
+//   .wide {
+//     width: 644px;
+//   }
+// }
+// @media screen and (min-width: 1024px) and (max-width: 1239px) {
+//   .wide {
+//     width: 984px;
+//   }
+// }
+// @media screen and (max-width: 740px) {
+//   .wide {
+//     width: 100%;
+//   }
+// }
+//
+/** COLULN RESPONSE **/
+// MEDIUM PC
+@media screen and (max-width: 1239px) {
+  .wide {
+    width: 984px;
+  }
+}
+//LOW PC
+@media screen and (max-width: 1024px) {
+  .wide {
+    width: 644px;
+  }
+}
+// TABLET
+@media screen and (max-width: 770px) {
+  .wide {
+    width: 644px;
+  }
+  .grid {
+    .t-1 {
+      grid-column: span 1;
+    }
+    .t-2 {
+      grid-column: span 2;
+    }
+    .t-3 {
+      grid-column: span 3;
+    }
+    .t-4 {
+      grid-column: span 4;
+    }
+    .t-5 {
+      grid-column: span 5;
+    }
+    .t-6 {
+      grid-column: span 6;
+    }
+    .t-7 {
+      grid-column: span 7;
+    }
+    .t-8 {
+      grid-column: span 8;
+    }
+    .t-9 {
+      grid-column: span 9;
+    }
+    .t-10 {
+      grid-column: span 10;
+    }
+    .t-11 {
+      grid-column: span 11;
+    }
+    .t-12 {
+      grid-column: span 12;
+    }
+  }
+}
+// MOBILE
+@media screen and (max-width: 320px) {
+  .grid {
+    .m-1 {
+      grid-column: span 1;
+    }
+    .m-2 {
+      grid-column: span 2;
+    }
+    .m-3 {
+      grid-column: span 3;
+    }
+    .m-4 {
+      grid-column: span 4;
+    }
+    .m-5 {
+      grid-column: span 5;
+    }
+    .m-6 {
+      grid-column: span 6;
+    }
+    .m-7 {
+      grid-column: span 7;
+    }
+    .m-8 {
+      grid-column: span 8;
+    }
+    .m-9 {
+      grid-column: span 9;
+    }
+    .m-10 {
+      grid-column: span 10;
+    }
+    .m-11 {
+      grid-column: span 11;
+    }
+    .m-12 {
+      grid-column: span 12;
+    }
+  }
+}
