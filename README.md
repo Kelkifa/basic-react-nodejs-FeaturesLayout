@@ -39,9 +39,16 @@ Concurrently (run Reactjs and nodejs on a same terminal)
 client
 |__ public
 |__ src
+|  |__ assets
+|     |__ gridLibrary.scss
 |  |__ components
-|  |__ views
-|  |__ index.js
+|  |__ features
+|     |__ Cart
+|        |__ components
+|        |__ pages
+|     |__ Product
+|        |__ components
+|        |__ pages
 server
 |__ app
 |  |__ cores
