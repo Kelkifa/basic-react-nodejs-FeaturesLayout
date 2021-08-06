@@ -7,6 +7,13 @@ Basic layout for Nodejs server and Reactjs client
 - Server (Nodejs + Express, MongoDB)
 - Client (Reactjs)
 
+Technologies
+
+- Auto import (vscode)
+- redux and react redux (reactjs)
+- react router dom (reactjs)
+- formic (verify form)(reactjs)
+
 ## Libraries
 
 Reactjs (client)
