@@ -8,8 +8,12 @@
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto;
     column-gap: 8px;
-    .grid__item--center {
+    .grid__item--cc {
       place-self: center;
+    }
+    .grid__item--lc {
+      align-self: center;
+      justify-self: end;
     }
   }
   .c-0 {
@@ -51,6 +55,40 @@
   .c-12 {
     grid-column: span 12;
   }
+  //COLUMN GAP
+  .cg-0 {
+    column-gap: 0px;
+  }
+  .cg-1 {
+    column-gap: 1px;
+  }
+  .cg-2 {
+    column-gap: 2px;
+  }
+  .cg-3 {
+    column-gap: 3px;
+  }
+  .cg-4 {
+    column-gap: 4px;
+  }
+  .cg-5 {
+    column-gap: 5px;
+  }
+  .cg-6 {
+    column-gap: 6px;
+  }
+  .cg-7 {
+    column-gap: 7px;
+  }
+  .cg-8 {
+    column-gap: 8px;
+  }
+  .cg-9 {
+    column-gap: 9px;
+  }
+  .cg-10 {
+    column-gap: 10px;
+  }
 }
 
 // /** WIDE RESPONSE **/
@@ -70,7 +108,7 @@
 //   }
 // }
 //
-/** COLULN RESPONSE **/
+/** COLUMN RESPONSE **/
 @media screen and (min-width: 1024px) and (max-width: 1239px) {
   .wide {
     width: 984px;
@@ -132,7 +170,7 @@
   }
 }
 // MOBILE
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 415px) {
   .wide {
     max-width: 97%;
   }

@@ -24,6 +24,9 @@ React Router Dom
 
 `npm install react-router-dom`
 
+React Icons
+`npm install react-icon --save`
+
 Nodejs Express (server)
 
 `npm install express`

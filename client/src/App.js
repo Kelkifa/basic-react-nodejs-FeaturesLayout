@@ -1,4 +1,5 @@
-import './assets/gridLibrary.scss';
+import './assets/scss/components/gridLibrary.scss';
+import './assets/scss/base.scss';
 import React from 'react';
 
 import {
@@ -8,6 +9,7 @@ import {
     Redirect
 } from "react-router-dom";
 import Header from './components/Header/Header';
+import Home from './features/Product/pages/Home';
 
 
 
@@ -17,7 +19,7 @@ function App(props) {
             <Router>
                 <Header></Header>
                 <Switch>
-                    {/* <Route exact path="/" component={Home} /> */}
+                    <Route exact path="/" component={Home} />
                     <Route>
                         <h1>Not match</h1>
                     </Route>
