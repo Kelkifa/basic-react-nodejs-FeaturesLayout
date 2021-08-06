@@ -8,6 +8,9 @@
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto;
     column-gap: 8px;
+    .grid__item--center {
+      place-self: center;
+    }
   }
   .c-0 {
     display: none;
@@ -68,22 +71,26 @@
 // }
 //
 /** COLULN RESPONSE **/
-// MEDIUM PC
-@media screen and (max-width: 1239px) {
+@media screen and (min-width: 1024px) and (max-width: 1239px) {
   .wide {
     width: 984px;
   }
 }
-//LOW PC
-@media screen and (max-width: 1024px) {
+// MEDIUM PC
+@media screen and (min-width: 740px) and (max-width: 1023px) {
   .wide {
-    width: 644px;
+    width: 700px;
+  }
+}
+@media screen and (max-width: 740px) {
+  .wide {
+    width: 95%;
   }
 }
 // TABLET
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 820px) {
   .wide {
-    width: 644px;
+    width: 95%;
   }
   .grid {
     .t-1 {
@@ -126,6 +133,9 @@
 }
 // MOBILE
 @media screen and (max-width: 320px) {
+  .wide {
+    max-width: 97%;
+  }
   .grid {
     .m-1 {
       grid-column: span 1;

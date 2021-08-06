@@ -1,4 +1,4 @@
-# Basic setup Nodejs + Reactjs (grid library, feature layouts )
+# Basic setup Nodejs + Reactjs (grid library, feature layouts, auto import componenets )
 
 ## Introduction
 
@@ -51,6 +51,7 @@ client
 |  |     |__ pages
 |  |__ App.js
 |  |__ indedx.js
+|  |__ jsconfig.json
 server
 |__ app
 |  |__ cores
