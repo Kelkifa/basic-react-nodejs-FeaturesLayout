@@ -1,2 +1,86 @@
 .home-page {
+  padding: 30px 0;
+
+  color: #333333;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .home__navbar {
+    &__item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background-color: white;
+
+      padding: 5px;
+      width: 100%;
+
+      &:first-child {
+        border-bottom: 3px solid #fa7d19;
+      }
+    }
+  }
+
+  .home__content {
+    &__leftbar {
+      background-color: white;
+
+      &__item {
+        padding: 6px 10px;
+
+        cursor: pointer;
+
+        &:hover {
+          color: red;
+        }
+      }
+      &__item:last-child {
+        padding-bottom: 20px;
+      }
+
+      &__title {
+        display: flex;
+        align-items: center;
+
+        height: 53px;
+        padding: 6px 10px;
+      }
+    }
+
+    &__right {
+      width: 100%;
+
+      &__sort {
+        padding: 10px 0;
+
+        background-color: #ebe8e8;
+
+        li {
+          align-self: center;
+        }
+
+        &__btn {
+          display: flex;
+          align-items: center;
+          padding: 6px 20px;
+
+          background-color: white;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #fa7d19;
+          }
+        }
+      }
+
+      &__cards {
+        padding: 15px 0;
+      }
+    }
+  }
 }

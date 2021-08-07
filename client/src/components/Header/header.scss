@@ -2,6 +2,9 @@
   background-color: #fa7d19;
   width: 100%;
   &__icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 40px 0;
   }
   &__search {
@@ -28,6 +31,9 @@
       outline: none;
     }
     .cart-icon {
+      justify-self: end;
+      align-self: center;
+
       color: white;
       font-size: 24px;
     }

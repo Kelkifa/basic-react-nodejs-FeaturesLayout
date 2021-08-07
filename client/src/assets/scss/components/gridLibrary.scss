@@ -1,21 +1,25 @@
 .wide {
   max-width: 1200px;
 }
+.wide-p97 {
+  max-width: 97%;
+}
 .grid {
+  width: 100%;
   margin: 0 auto;
+  .row-c10 {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: auto;
+    column-gap: 8px;
+  }
   .row {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto;
     column-gap: 8px;
-    .grid__item--cc {
-      place-self: center;
-    }
-    .grid__item--lc {
-      align-self: center;
-      justify-self: end;
-    }
   }
+
   .c-0 {
     display: none;
   }
@@ -89,25 +93,14 @@
   .cg-10 {
     column-gap: 10px;
   }
-}
+  .cg-20 {
+    column-gap: 20px;
+  }
 
-// /** WIDE RESPONSE **/
-// @media screen and (min-width: 740px) and (max-width: 1023px) {
-//   .wide {
-//     width: 644px;
-//   }
-// }
-// @media screen and (min-width: 1024px) and (max-width: 1239px) {
-//   .wide {
-//     width: 984px;
-//   }
-// }
-// @media screen and (max-width: 740px) {
-//   .wide {
-//     width: 100%;
-//   }
-// }
-//
+  .rg-20 {
+    row-gap: 20px;
+  }
+}
 /** COLUMN RESPONSE **/
 @media screen and (min-width: 1024px) and (max-width: 1239px) {
   .wide {
@@ -118,6 +111,47 @@
 @media screen and (min-width: 740px) and (max-width: 1023px) {
   .wide {
     width: 700px;
+  }
+  .grid {
+    .l-0 {
+      display: none;
+    }
+    .l-1 {
+      grid-column: span 1;
+    }
+    .l-2 {
+      grid-column: span 2;
+    }
+    .l-3 {
+      grid-column: span 3;
+    }
+    .l-4 {
+      grid-column: span 4;
+    }
+    .l-5 {
+      grid-column: span 5;
+    }
+    .l-6 {
+      grid-column: span 6;
+    }
+    .l-7 {
+      grid-column: span 7;
+    }
+    .l-8 {
+      grid-column: span 8;
+    }
+    .l-9 {
+      grid-column: span 9;
+    }
+    .l-10 {
+      grid-column: span 10;
+    }
+    .l-11 {
+      grid-column: span 11;
+    }
+    .l-12 {
+      grid-column: span 12;
+    }
   }
 }
 @media screen and (max-width: 740px) {
@@ -131,6 +165,9 @@
     width: 95%;
   }
   .grid {
+    .t-0 {
+      display: none;
+    }
     .t-1 {
       grid-column: span 1;
     }
@@ -175,6 +212,9 @@
     max-width: 97%;
   }
   .grid {
+    .m-0 {
+      display: none;
+    }
     .m-1 {
       grid-column: span 1;
     }

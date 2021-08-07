@@ -17,7 +17,7 @@ function Header(props) {
             <div className="grid wide">
                 <div className="row">
                     <div className="c-12 header__icon-container grid__item--cc">
-                        <i class="icon-logoDesignBlack" style={{fontSize:"250px", color:"white"}}></i>
+                        <i className="icon-logoDesignBlack" style={{fontSize:"250px", color:"white"}}></i>
                     </div>
                 </div>
                 <div className="row grid header__search">
