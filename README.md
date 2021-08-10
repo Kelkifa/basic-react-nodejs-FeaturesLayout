@@ -12,7 +12,8 @@ Technologies
 - Auto import (vscode)
 - redux and react redux (reactjs)
 - react router dom (reactjs)
-- formic (verify form)(reactjs)
+- formic (form control) (reactjs)
+- yup (form validation)
 
 ## Libraries
 
