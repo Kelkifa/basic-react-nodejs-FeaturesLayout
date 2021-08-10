@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Header from './components/Header/Header';
 import NotFound from './components/NotFound';
+import Cart from './features/Cart';
 
 // Lazy load - Code splitting
 const Product = React.lazy(() => import('./features/Product'));
@@ -20,7 +21,8 @@ function App(props) {
                 <Router>
                     <Header />
                     <Switch>
-                        <Route exac tpath="/" component={Product} />
+                        <Route exac path="/cart" component={Cart} />
+                        <Route exac path="/" component={Product} />
                         <Route component={NotFound} />
                     </Switch>
                 </Router>

@@ -34,3 +34,18 @@ body::-webkit-scrollbar-track {
 .custom-scroll::-webkit-scrollbar-track {
   background-color: transparent;
 }
+
+// DIALOG
+.dialog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(87, 85, 85, 0.39);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

@@ -1,0 +1,43 @@
+.cart-page {
+  margin-top: 30px;
+
+  color: #333333;
+  font-size: 14px;
+
+  .cart__group {
+    background-color: white;
+    padding: 8px;
+  }
+  .cart__group ~ .cart__group {
+    margin-top: 20px;
+    border-radius: 3px;
+  }
+
+  .cart__control {
+    display: flex;
+    justify-content: space-between;
+    input {
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+    }
+    &__left,
+    &__right {
+      display: flex;
+      align-items: center;
+      gap: 0 10px;
+    }
+
+    &__right {
+      &__buy {
+        padding: 3px 10px;
+      }
+
+      &__cost {
+        font-size: 15px;
+        font-weight: bold;
+        color: #e97618;
+      }
+    }
+  }
+}

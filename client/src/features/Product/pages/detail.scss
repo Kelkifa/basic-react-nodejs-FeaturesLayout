@@ -1,5 +1,7 @@
 .detail-page {
   margin: 30px 0;
+
+  color: #000000cc;
   ul {
     list-style: none;
     padding: 0;
@@ -13,6 +15,35 @@
     }
 
     &__right {
+      &__name {
+        font-size: 20px;
+      }
+      &__sold {
+        font-size: 14px;
+        color: #0000008a;
+      }
+      &__description {
+        height: 100px;
+        padding-top: 8px;
+
+        font-size: 16px;
+      }
+      &__cost {
+        padding: 15px 0;
+
+        font-size: 25px;
+        color: #e97618;
+      }
+      &__btns {
+        margin-top: 20px;
+        button {
+          padding: 10px 20px;
+          cursor: pointer;
+        }
+        button ~ button {
+          margin-left: 10px;
+        }
+      }
     }
   }
 }

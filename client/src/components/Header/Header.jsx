@@ -6,6 +6,7 @@ import {FiShoppingCart} from "react-icons/fi";
 
 
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 Header.propTypes = {
     
@@ -24,7 +25,9 @@ function Header(props) {
                     <div className="c-12 row cg-0">
                         <input className="c-9 t-8 m-8" type="text" placeholder="Tìm kiếm sản phẩm .." />
                         <button className="c-2 t-3 m-3">Tìm kiếm</button>
-                        <FiShoppingCart className="cart-icon grid__item--lc"/>
+                        <Link to="/cart" className="cart-icon">
+                            <FiShoppingCart className="cart-icon"/>
+                        </Link>
                     </div>
                 </div>
             </div>
