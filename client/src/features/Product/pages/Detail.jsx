@@ -1,16 +1,11 @@
 import '../../../assets/scss/components/btn.scss';
 import './detail.scss';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import ImageShow from '../components/ImageShow';
 import { numberToCost } from '../../../assets/cores/cores';
-import SuccessNotifice from '../../../components/Dialog/SuccessNotifice';
-import FailNotifice from '../../../components/Dialog/FailNotifice';
-import LoadNotifice from '../../../components/Dialog/LoadNotifice';
-import FormNotifice from '../../../components/Dialog/FormNotifice';
-import { FastField, Formik } from 'formik';
-import ProductTypeSelect from '../components/ProductTypeSelect';
-
+import AddCartForm from '../components/AddCartForm';
+import { useSelector } from 'react-redux';
 
 Detail.propTypes = {
     name: PropTypes.string,
@@ -42,35 +37,31 @@ Detail.defaultProps = {
     likes: 0,
     sold : 0,
 }
-const dialogTimeout = 1500;
+
+// const schema = yup.object().shape({
+//     shape: yup.string().required('This field is required').nullable(),
+//     color: yup.string().required('This field is required').nullable(),
+//     soLuong: yup.number().required('This field is required').min(0).max(100).integer().default(0),
+// });
+
 
 function Detail(props) {
+    // FORM
     const initialValues = {
+        btnType:null,
         shape:null,
         color:null,
         soLuong:0,
     }
+    // REF
+    const formRef = useRef()
     // PROPS
     const {imgList, name, description, cost, shapes, colors, soLuong, likes, sold} = props;
-    
-    // STATES
-    const [successNotifice, setSuccessNotifice] = useState(false); // hien thi thong bao thanh cong
-    const [failNotifice, setFailNotifice] = useState(false);    // hien thi thong bao that bai
-    const [loadNotifice, setLoadNotifice] = useState(false);    // hien thi thong bao Loading
-    const [formNotifice, setFormNotifice] = useState(false);    // hien thi thong bao Loading
 
     const [optionImg, setOptionImg] = useState('');
 
+
     // FUNCTION HANDLERS
-    // Change image show
-    const optionMouseOverHandler = (img)=>{
-        setOptionImg(img);
-    }
-    
-    // Click btn (add cart and buy now)
-    const clickBtnHandler = (btnType)=>{
-        console.log(btnType);
-    }
 
     return (
         <div className="detail-page">
@@ -92,59 +83,15 @@ function Detail(props) {
                         <div className="detail__right__description custom-scroll">{description}</div>
 
                         <div className="detail__right__cost">{numberToCost(cost)}đ</div>
+                            <AddCartForm
+                                initialValues={{shape:null, color:null, soLuong:0}}
+                            />
+                        <div>
 
-                        <Formik 
-                            initialValues={initialValues}
-                        >
-                            { formikProps=>{
-                                const {values, errors, touched} = formikProps;
-
-                                return(
-                                    <div className="detail__right__select">
-                                        <FastField 
-                                            name="shape"
-                                            component={ProductTypeSelect}
-
-                                            label="Hình dáng"
-                                            options={shapes}
-
-                                            mouseOverOptions={optionMouseOverHandler}
-                                        />
-                                        <FastField 
-                                            name="color"
-                                            component={ProductTypeSelect}
-
-                                            label="Màu sắc"
-                                            options={colors}
-
-                                            mouseOverOptions={optionMouseOverHandler}
-                                            
-                                        />
-                                        <FastField 
-                                            name="soLuong"
-                                            component={ProductTypeSelect}
-
-                                            label="Số lượng"
-                                            type='number'
-                                            remainProducts={100}
-                                        />
-                                    </div>
-                                )
-                            }}   
-                        </Formik>
-
-                        <div className="detail__right__btns">
-                            <button className="custom-btn__add-cart" onClick={()=>{clickBtnHandler('cart')}}>Thêm vào giỏ</button>
-                            <button className="custom-btn__buy" onClick={()=>{clickBtnHandler('buy')}}>Mua ngay</button>
                         </div>
                     </div>
-
                 </div>
             </div>
-            {successNotifice && <SuccessNotifice />}
-            {failNotifice && <FailNotifice />}
-            {loadNotifice && <LoadNotifice />}
-            {formNotifice && <FormNotifice />}
         </div>
     );
 }

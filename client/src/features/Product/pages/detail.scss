@@ -35,12 +35,13 @@
         color: #e97618;
       }
       &__btns {
+        display: flex;
         margin-top: 20px;
-        button {
+        .btn {
           padding: 10px 20px;
           cursor: pointer;
         }
-        button ~ button {
+        .btn ~ .btn {
           margin-left: 10px;
         }
       }

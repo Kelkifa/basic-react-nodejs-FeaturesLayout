@@ -16,7 +16,7 @@ ImageShow.default = {
 function ImageShow(props) {
     //PROPS
     const {imgList, optionImg} = props;
-    console.log(optionImg);
+    
     //STATES
     const [showImage, setShowImage] = useState(imgList[0]);  // image item is showed
     const [active, setActive] = useState(-1);   // border for image list

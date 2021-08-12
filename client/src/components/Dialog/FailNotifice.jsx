@@ -11,7 +11,7 @@ function FailNotifice(props) {
         <div className="dialog-container">
             <div className="dialog__content">
                 <div className="dialog__content__icon">
-                    <IoWarningSharp className="icon icon-fail"/>
+                    <IoWarningSharp className="icon icon--fail"/>
                 </div>
                 <p className="dialog__content__text">
                     Vui Lòng chọn hình dáng và màu sắc

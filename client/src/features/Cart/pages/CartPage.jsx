@@ -3,12 +3,16 @@ import '../../../assets/scss/components/btn.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Table from '../../../components/Table/Table';
+import { useSelector } from 'react-redux';
 
 CartPage.propTypes = {
     
 };
 
 function CartPage(props) {
+    const carts = useSelector(state => state.carts);
+
+    console.log(carts);
     return (
         <div className="cart-page grid wide">
             <div className="row cart__group">

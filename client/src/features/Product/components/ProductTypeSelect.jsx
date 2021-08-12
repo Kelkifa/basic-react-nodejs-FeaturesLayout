@@ -5,49 +5,52 @@ import PropTypes from 'prop-types';
 import {FaRegCheckCircle} from 'react-icons/fa';
 
 ProductTypeSelect.propTypes = {
-    form: PropTypes.object.isRequired,
-    field: PropTypes.object.isRequired,
-
+    name: PropTypes.string,
     label: PropTypes.string,
-    options: PropTypes.array,
+    options:PropTypes.array,
     type: PropTypes.string,
     remainProducts: PropTypes.number,
 
-    mouseOverOptions: PropTypes.func,
+    valueChange: PropTypes.func,
 };
 
 ProductTypeSelect.defaultProps = {
+    name: null,
     label: null,
     options: [],
-    type: 'select',
+    type: 'select',  //select or number
     remainProducts: 100,
-
-    mouseOverOptions: null,
+    
+    valueChange: null,
 }
 
 function ProductTypeSelect(props) {
+    
     // PROPS
-    const {
-        form, field,
-        label, options, type, remainProducts, // Option [name, image]
-        mouseOverOptions                        // Mouse over to options
-    } = props;
-
+    const {name, label, options, type, remainProducts, valueChange} = props;
+    
     // STATES
     const [active, setActive] = useState(false); //index of select item
 
-    // FUNCTION HANDLER
-    const clickHandler = (index, value) =>{
+    const [soLuongValue, setSoLuongvalue] = useState(0);
+
+    // FUNCTION HANDLER 
+    const clickHandler = (value, index)=>{
         setActive(index);
-        
-        // Form value change
-        const changeEvent = {
-            target:{
-                name: field.name,
-                value
-            }
+
+        const action = {
+            name,
+            payload:value
         }
-        field.onChange(changeEvent);
+        valueChange(action);
+    }
+    const changeHandler = (e) =>{
+        const action = {
+            name,
+            payload: e.target.value
+        }
+        valueChange(action);
+        setSoLuongvalue(e.target.value);
     }
 
     // RENDER
@@ -62,8 +65,8 @@ function ProductTypeSelect(props) {
                         <li
                             className={active === index ? "detail__right__select__group__options__item detail__right__select__group__options__item--active" : "detail__right__select__group__options__item"}
                             key={option.name}
-                            onClick={()=>{clickHandler(index, option.name)}}
-                            onMouseOver={()=>{if(mouseOverOptions) mouseOverOptions(option.image)}}
+                            onClick={()=>{clickHandler(option.name, index)}}
+                            // onMouseOver={()=>{if(mouseOverOptions) mouseOverOptions(option.image)}}
                         >
                             {option.name}
 
@@ -80,10 +83,9 @@ function ProductTypeSelect(props) {
                         type={type} 
                         className="detail__right__select__group__options__input" 
                         type="number"
-                        value={field.value}
+                        onChange = {changeHandler}
                         max="100" min="0"
-                        onChange={field.onChange}
-                        name={field.name}
+                        value={soLuongValue}
                     />
                     <div className="detail__right__select__group__options__available">
                         {remainProducts} sản phẩm còn lại

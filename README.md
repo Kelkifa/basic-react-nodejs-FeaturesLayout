@@ -12,8 +12,7 @@ Technologies
 - Auto import (vscode)
 - redux and react redux (reactjs)
 - react router dom (reactjs)
-- formic (form control) (reactjs)
-- yup (form validation)
+- formic + yup (form control) (reactjs) + (form validation)
 
 ## Libraries
 
@@ -27,6 +26,12 @@ React Router Dom
 
 React Icons
 `npm install react-icon --save`
+
+Formic
+`npm install --save formic`
+
+Yup
+`npm install --save yup`
 
 Nodejs Express (server)
 
