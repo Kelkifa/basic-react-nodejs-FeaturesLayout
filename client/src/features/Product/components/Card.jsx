@@ -15,7 +15,7 @@ Card.propTypes = {
 };
 
 Card.defaultProps = {
-    id: 123,
+    id: "123",
     img: null,
     description: null,
     cost: 0,

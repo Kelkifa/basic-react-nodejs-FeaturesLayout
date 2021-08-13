@@ -1,13 +1,16 @@
 import './home.scss';
-import React from 'react';
-import PropTypes from 'prop-types';
+
 import Card from '../components/Card';
+import PropTypes from 'prop-types';
+import React from 'react';
+import productApi from '../productApi';
 
 Home.propTypes = {
     
 };
 
 function Home(props) {
+
     return (
         <div className="grid wide home-page">
             <ul className="home__navbar row-c10 cg-0 c-12">

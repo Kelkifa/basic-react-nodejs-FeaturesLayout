@@ -1,0 +1,3 @@
+
+### GET /admin/products/:id/update ###
+GET http://localhost:8080/api/products

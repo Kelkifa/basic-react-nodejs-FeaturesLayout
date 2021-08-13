@@ -2,6 +2,7 @@ const port = process.env.PORT || 8080;
 const express = require('express');
 const app = express();
 const path = require('path');
+
 /** Models */
 //connect db
 const db = require('./server/app/cores/connectDb');
@@ -9,19 +10,23 @@ db.connect();
 //difine models
 const anime = require('./server/app/models/anime');
 
+// ** MIDDLEWARE ** //
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+
 /** cors */
 // --> Add this
-// ** MIDDLEWARE ** //
 const cors = require('cors');
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://shrouded-journey-38552.herokuapp.com']
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', '']
 const corsOptions = {
     origin: function (origin, callback) {
-        console.log("** Origin of request " + origin)
+        // console.log("** Origin of request " + origin)
         if (whitelist.indexOf(origin) !== -1 || !origin) {
-            console.log("Origin acceptable")
+            // console.log("Origin acceptable")
             callback(null, true)
         } else {
-            console.log("Origin rejected")
+            // console.log("Origin rejected")
             callback(new Error('Not allowed by CORS'))
         }
     }
@@ -29,13 +34,8 @@ const corsOptions = {
 app.use(cors());
 app.use(cors(corsOptions));
 
-
-app.get('/api/', (req, res) => {
-    anime.find()
-        .then(data => {
-            // res.header("Access-Control-Allow-Origin", "*");
-            res.json(data);
-        })
+app.get('/api/products', (req, res) => {
+    return res.json({ success: true, message: 'product api', response: 'abc xyz' });
 });
 
 // --> Add this
