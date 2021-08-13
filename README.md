@@ -10,9 +10,10 @@ Basic layout for Nodejs server and Reactjs client
 Technologies
 
 - Auto import (vscode)
-- redux and react redux (reactjs)
-- react router dom (reactjs)
-- formic + yup (form control) (reactjs) + (form validation)
+- Redux and react redux (reactjs)
+- React router dom (reactjs)
+- Formic + yup (form control) (reactjs) + (form validation)
+- Axios (HTTP Client)
 
 ## Libraries
 
@@ -55,19 +56,34 @@ Concurrently (run Reactjs and nodejs on a same terminal)
 client
 |__ public
 |__ src
+|  |__ app
+|  |  |__ store.js
+|  |
+|  |__ api
+|  |  |__ axiosClient.js
+|  |
 |  |__ assets
 |  |  |__ gridLibrary.scss
+|  |
 |  |__ components
+|  |
 |  |__ features
 |  |  |__ Cart
 |  |  |  |__ components
 |  |  |  |__ pages
+|  |  |  |__ cartSlice.js
+|  |  |  |__ index.jsx
+|  |  |
 |  |  |__ Product
 |  |     |__ components
 |  |     |__ pages
+|  |     |__ productSlice.js
+|  |     |__ index.jsx
+|  |
 |  |__ App.js
 |  |__ indedx.js
 |  |__ jsconfig.json
+|  |
 server
 |__ app
 |  |__ cores
