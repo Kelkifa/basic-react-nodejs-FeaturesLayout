@@ -9,7 +9,8 @@ Basic layout for Nodejs server and Reactjs client
 
 Technologies
 
-- Auto import (vscode)
+- Auto import with jsconfig (vscode client\jsconfig.json)
+- Auto Sort Import (client\package.json)
 - Redux and react redux (reactjs)
 - React router dom (reactjs)
 - Formic + yup (form control) (reactjs) + (form validation)

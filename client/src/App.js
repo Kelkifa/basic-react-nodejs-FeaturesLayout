@@ -1,15 +1,16 @@
 import './assets/scss/components/gridLibrary.scss';
 import './assets/scss/base.scss';
-import React, { Suspense } from 'react';
 
+import React, { Suspense } from 'react';
 import {
+    Route,
     BrowserRouter as Router,
-    Switch,
-    Route
+    Switch
 } from "react-router-dom";
+
+import Cart from 'features/Cart';
 import Header from './components/Header/Header';
-import NotFound from './components/NotFound';
-import Cart from './features/Cart';
+import NotFound from 'components/NotFound';
 
 // Lazy load - Code splitting
 const Product = React.lazy(() => import('./features/Product'));
