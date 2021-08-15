@@ -1,11 +1,9 @@
-import productApi from './productApi';
-import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import Home from './pages/Home';
+
 import Detail from './pages/Detail';
-import NotFound from '../../components/NotFound';
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import Home from './pages/Home';
+import NotFound from 'components/NotFound';
+import React from 'react';
 
 Product.propTypes = {
     

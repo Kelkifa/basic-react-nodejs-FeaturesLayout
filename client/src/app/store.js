@@ -1,4 +1,5 @@
 import cartReducer from "../features/Cart/cartSlice";
+
 const { configureStore } = require("@reduxjs/toolkit");
 
 const rootReducer = {

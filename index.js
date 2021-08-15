@@ -5,10 +5,8 @@ const path = require('path');
 
 /** Models */
 //connect db
-const db = require('./server/app/cores/connectDb');
+const db = require('./server/src/cores/connectDb');
 db.connect();
-//difine models
-const anime = require('./server/app/models/anime');
 
 // ** MIDDLEWARE ** //
 app.use(express.urlencoded({ extended: true }));
@@ -34,9 +32,9 @@ const corsOptions = {
 app.use(cors());
 app.use(cors(corsOptions));
 
-app.get('/api/products', (req, res) => {
-    return res.json({ success: true, message: 'product api', response: 'abc xyz' });
-});
+// ROUTER
+const router = require('./server/src/routes');
+router(app);
 
 // --> Add this
 if (process.env.NODE_ENV === 'production') {

@@ -1,6 +1,16 @@
 .header {
   background-color: #fa7d19;
   width: 100%;
+
+  &__auth {
+    color: white;
+    text-decoration: underline;
+
+    &__item {
+      grid-column-end: end-line;
+    }
+  }
+
   &__icon-container {
     display: flex;
     justify-content: center;

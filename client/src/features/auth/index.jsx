@@ -1,22 +1,23 @@
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-import CartPage from './pages/CartPage';
+import LoginPage from './pages/LoginPage';
 import NotFound from 'components/NotFound';
+import PropTypes from 'prop-types';
 import React from 'react';
 
-Cart.propTypes = {
+Auth.propTypes = {
     
 };
 
-function Cart(props) {
+function Auth(props) {
     const match = useRouteMatch();
-
+    
     return (
         <Switch>
-            <Route path={match.url} component={CartPage} />
+            <Route path={`${match.url}/login`} component={LoginPage} />
             <Route component={NotFound} />
         </Switch>
     );
 }
 
-export default Cart;
+export default Auth;

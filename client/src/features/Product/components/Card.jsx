@@ -1,9 +1,10 @@
 import './card.scss';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { numberToCost } from '../../../assets/cores/cores';
+
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { linkStyle } from '../../../assets/styles/styles';
+import { numberToCost } from '../../../assets/cores/cores';
 
 Card.propTypes = {
     id: PropTypes.string,
@@ -27,7 +28,7 @@ function Card(props) {
     const {id, img, description, cost, position, heart} = props;
 
     return (
-        <div className="home-card c-2 l-3 t-3 m-5">
+        <div className="home-card c-2 t-3 m-4">
             <Link to={`/${id}/detail`} style={linkStyle}>
                 <div className="card__img"> 
                     <img src={img} alt="" />

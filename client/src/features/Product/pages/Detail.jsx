@@ -1,11 +1,12 @@
 import '../../../assets/scss/components/btn.scss';
 import './detail.scss';
+
 import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import ImageShow from '../components/ImageShow';
-import { numberToCost } from '../../../assets/cores/cores';
+
 import AddCartForm from '../components/AddCartForm';
-import { useSelector } from 'react-redux';
+import ImageShow from '../components/ImageShow';
+import PropTypes from 'prop-types';
+import { numberToCost } from '../../../assets/cores/cores';
 
 Detail.propTypes = {
     name: PropTypes.string,
@@ -37,12 +38,6 @@ Detail.defaultProps = {
     likes: 0,
     sold : 0,
 }
-
-// const schema = yup.object().shape({
-//     shape: yup.string().required('This field is required').nullable(),
-//     color: yup.string().required('This field is required').nullable(),
-//     soLuong: yup.number().required('This field is required').min(0).max(100).integer().default(0),
-// });
 
 
 function Detail(props) {

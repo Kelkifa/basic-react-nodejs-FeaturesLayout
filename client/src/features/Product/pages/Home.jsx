@@ -1,9 +1,7 @@
 import './home.scss';
 
 import Card from '../components/Card';
-import PropTypes from 'prop-types';
 import React from 'react';
-import productApi from '../productApi';
 
 Home.propTypes = {
     
@@ -42,15 +40,17 @@ function Home(props) {
                     </div>
                     <div className="home__content__right__cards">
                         <div className="grid wide-p97">
-                            <div className="row-c10 cg-20 rg-20">
+                            <div className="row-c10">
                                 <Card img="https://picsum.photos/500/400"
-                                description="anh dep"
-                                cost={300000}
-                                position="Đồng Nai" />
+                                    description="anh dep"
+                                    cost={300000}
+                                    position="Đồng Nai" 
+                                />
                                 <Card img="https://picsum.photos/500/400"
-                                description="anh dep"
-                                cost={300000}
-                                position="Đồng Nai" />
+                                    description="anh dep"
+                                    cost={300000}
+                                    position="Đồng Nai" 
+                                />
                             </div>
                         </div>
                     </div>

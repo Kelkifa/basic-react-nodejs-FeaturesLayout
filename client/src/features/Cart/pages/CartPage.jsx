@@ -1,18 +1,13 @@
 import './cartPage.scss';
-import '../../../assets/scss/components/btn.scss';
-import React from 'react';
-import PropTypes from 'prop-types';
-import Table from '../../../components/Table/Table';
-import { useSelector } from 'react-redux';
+import 'assets/scss/components/btn.scss';
 
-CartPage.propTypes = {
-    
-};
+import React from 'react';
+import Table from 'components/Table/Table';
+import { useSelector } from 'react-redux';
 
 function CartPage(props) {
     const carts = useSelector(state => state.carts);
 
-    console.log(carts);
     return (
         <div className="cart-page grid wide">
             <div className="row cart__group">

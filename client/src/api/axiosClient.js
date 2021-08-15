@@ -1,5 +1,7 @@
 import axios from 'axios';
+import firebase from 'firebase';
 import queryString from 'query-string';
+
 require('dotenv').config();
 
 const axiosClient = axios.create({
@@ -13,7 +15,13 @@ const axiosClient = axios.create({
 
 // APi Resquest
 axiosClient.interceptors.request.use(async config => {
-    // Handle token here ...
+    const currentUser = firebase.auth().currentUser();
+    console.log('CURRENT USER', currentUser);
+    if (currentUser) {
+        const token = await currentUser.getIdToken();
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+
     return config;
 })
 

@@ -1,0 +1,25 @@
+.input-field {
+  color: #212529b2;
+
+  label {
+  }
+  input {
+    display: block;
+
+    width: 100%;
+    height: 38px;
+    padding: 6px 12px;
+    margin-top: 8px;
+
+    outline: rgba(23, 146, 218, 0.411);
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+
+    font-size: 16px;
+    color: #232629c7;
+  }
+}
+
+.input-field ~ .input-field {
+  margin-top: 16px;
+}

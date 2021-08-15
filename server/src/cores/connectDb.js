@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 //Change it
 const MONGOOSE_URL = 'mongodb+srv://huan:Kelkifa123@cluster0.4ovly.mongodb.net/anime_movie?retryWrites=true&w=majority';

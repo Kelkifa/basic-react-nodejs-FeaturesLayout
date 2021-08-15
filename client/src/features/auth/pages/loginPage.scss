@@ -1,0 +1,16 @@
+.login-page {
+  &__logo {
+    color: white;
+    font-size: 300px;
+
+    justify-self: center;
+  }
+
+  &__form {
+    padding: 12px;
+
+    background-color: white;
+
+    border-radius: 3px;
+  }
+}
