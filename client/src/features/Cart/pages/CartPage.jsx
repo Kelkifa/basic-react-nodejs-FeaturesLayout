@@ -3,10 +3,21 @@ import 'assets/scss/components/btn.scss';
 
 import React from 'react';
 import Table from 'components/Table/Table';
+import productApi from 'api/productApi';
 import { useSelector } from 'react-redux';
 
 function CartPage(props) {
     const carts = useSelector(state => state.carts);
+
+    // HANDLER FUNCTIONS
+    const testRequestClickHandler = async ()=>{
+        try{
+            const response = await productApi.getAll();
+            console.log(response);
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     return (
         <div className="cart-page grid wide">
@@ -29,6 +40,8 @@ function CartPage(props) {
                     <Table></Table>
                 </div>
             </div>
+            
+            <button onClick={testRequestClickHandler}>request to product</button>
         </div>
     );
 }
