@@ -1,7 +1,13 @@
 const productRouter = require('./product');
+const cartRouter = require('./cart');
+const authRouter = require('./auth');
+
+const authMidleware = require('../midlewares/authMidleware');
 
 function router(app) {
-    app.use('/api', productRouter);
+    app.use('/api/auth', authMidleware, authRouter);
+    app.use('/api/cart', authMidleware, cartRouter);
+    app.use('/api/products', productRouter);
 }
 
 module.exports = router;

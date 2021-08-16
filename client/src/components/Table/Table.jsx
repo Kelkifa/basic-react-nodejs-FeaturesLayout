@@ -1,6 +1,7 @@
 import './table.scss';
-import React from 'react';
+
 import PropTypes from 'prop-types';
+import React from 'react';
 
 Table.propTypes = {
     theaders: PropTypes.array,
@@ -8,22 +9,11 @@ Table.propTypes = {
 };
 
 Table.defaultProps = {
-    theaders:[
-        '',
-        'Sản phẩm',
-        'Mô tả',
-        'Hình dáng',
-        'Màu sắc',
-        'Đơn giá',
-        'Số lượng',
-        'Thành tiền',
-        'Lưa chọn'
-    ],
-    tbodies:[[]],
+    theaders:[],
 }
 
 function Table(props) {
-    const {theaders, tbodies} = props;
+    const {theaders, children} = props;
 
     return (
         <table className="table-component">
@@ -35,17 +25,7 @@ function Table(props) {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th><input type="checkbox" /></th>
-                    <th><input type="checkbox" /></th>
-                    <th><input type="checkbox" /></th>
-                    <th><input type="checkbox" /></th>
-                    <th><input type="checkbox" /></th>
-                    <th><input type="checkbox" /></th>
-                    <th><input type="checkbox" /></th>
-                    <th><input type="checkbox" /></th>
-                    <th><input type="checkbox" /></th>
-                </tr>
+                    {children}
             </tbody>
         </table>
     );

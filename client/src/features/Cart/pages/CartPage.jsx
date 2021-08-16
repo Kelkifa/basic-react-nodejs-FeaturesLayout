@@ -3,21 +3,27 @@ import 'assets/scss/components/btn.scss';
 
 import React from 'react';
 import Table from 'components/Table/Table';
+import { numberToCost } from 'assets/cores/cores';
 import productApi from 'api/productApi';
 import { useSelector } from 'react-redux';
 
 function CartPage(props) {
     const carts = useSelector(state => state.carts);
 
+    // const user = useSelector(state => state.user)
+    // console.log(user);
+
     // HANDLER FUNCTIONS
-    const testRequestClickHandler = async ()=>{
-        try{
-            const response = await productApi.getAll();
-            console.log(response);
-        }catch(err){
-            console.log(err);
-        }
-    }
+    // const testRequestClickHandler = async ()=>{
+    //     try{
+    //         const response = await productApi.getAll();
+    //         console.log(response);
+    //     }catch(err){
+    //         console.log(err);
+    //     }
+    // }
+
+
 
     return (
         <div className="cart-page grid wide">
@@ -37,11 +43,40 @@ function CartPage(props) {
             </div>
             <div className="row cart__group">
                 <div className="c-12 cart__table">
-                    <Table></Table>
+                    <Table theaders={[
+                                '',
+                                'Sản phẩm',
+                                'Mô tả',
+                                'Hình dáng',
+                                'Màu sắc',
+                                'Đơn giá',
+                                'Số lượng',
+                                'Thành tiền',
+                                'Lưa chọn'
+                            ]
+                        }
+                    >
+                        {carts.map(cart => (
+                            <tr>
+                                <td><input type="checkbox" /></td>
+                                <td>{cart.name}</td>
+                                <td>{cart.description}</td>
+                                <td>{cart.shape}</td>
+                                <td>{cart.color}</td>
+                                <td className="cost-style">{numberToCost(cart.cost)}</td>
+                                <td>{cart.soLuong}</td>
+                                <td>{numberToCost(cart.cost * cart.soLuong)}</td>
+                                <td>
+                                    <a href="/asd" onClick={(e)=>{e.preventDefault()}}>
+                                        delete
+                                    </a>
+                                </td>
+                            </tr>
+                        ))}
+                        
+                    </Table>
                 </div>
             </div>
-            
-            <button onClick={testRequestClickHandler}>request to product</button>
         </div>
     );
 }

@@ -1,14 +1,17 @@
 import '../../../assets/scss/components/btn.scss';
 import './detail.scss';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AddCartForm from '../components/AddCartForm';
 import ImageShow from '../components/ImageShow';
 import PropTypes from 'prop-types';
+import { getOne } from '../productSlice';
 import { numberToCost } from '../../../assets/cores/cores';
 
 Detail.propTypes = {
+    id: PropTypes.string,
     name: PropTypes.string,
     imgList: PropTypes.array,
     description: PropTypes.string,
@@ -22,6 +25,7 @@ Detail.propTypes = {
 };
 
 Detail.defaultProps = {
+    id: '61016070c895a3230806395c',
     name: "Chậu hoa",
     imgList: ["https://picsum.photos/500/501","https://picsum.photos/500/500","https://picsum.photos/500/503","https://picsum.photos/500/503","https://picsum.photos/500/503","https://picsum.photos/500/503","https://picsum.photos/500/503","https://picsum.photos/500/503","https://picsum.photos/500/503","https://picsum.photos/500/503"],
     description: "Mô tả chậu hoa",
@@ -41,6 +45,9 @@ Detail.defaultProps = {
 
 
 function Detail(props) {
+    const dispatch = useDispatch();
+    const product = useSelector(state => state.products)
+    console.log(product.product);
     // FORM
     const initialValues = {
         btnType:null,
@@ -51,10 +58,16 @@ function Detail(props) {
     // REF
     const formRef = useRef()
     // PROPS
-    const {imgList, name, description, cost, shapes, colors, soLuong, likes, sold} = props;
+    const {imgList, name, description, cost, shapes, colors, soLuong, likes, sold, id} = props;
 
     const [optionImg, setOptionImg] = useState('');
 
+    useEffect(()=>{
+        const getProduct = async ()=>{
+            await dispatch(getOne({id}))
+        }
+        getProduct();
+    },[])
 
     // FUNCTION HANDLERS
 

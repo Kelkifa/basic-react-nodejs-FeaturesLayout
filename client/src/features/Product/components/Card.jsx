@@ -12,7 +12,7 @@ Card.propTypes = {
     description: PropTypes.string,
     cost: PropTypes.number,
     position: PropTypes.string,
-    heart: PropTypes.number,
+    likes: PropTypes.number,
 };
 
 Card.defaultProps = {
@@ -21,11 +21,11 @@ Card.defaultProps = {
     description: null,
     cost: 0,
     position: null,
-    heart:0,
+    likes:0
 }
 
 function Card(props) {
-    const {id, img, description, cost, position, heart} = props;
+    const {id, img, description, cost, position, likes} = props;
 
     return (
         <div className="home-card c-2 t-3 m-4">
@@ -36,7 +36,7 @@ function Card(props) {
                 <div className="card__description custom-scroll">{description}</div>
                 <div className="card__cost">{numberToCost(cost)}đ</div>
             </Link>
-            <div className="card__heart">{heart}</div>
+            <div className="card__heart">{likes}</div>
             
             <div className="card__position">{position}</div>
         </div>

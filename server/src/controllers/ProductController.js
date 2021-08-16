@@ -1,5 +1,4 @@
-
-const verifyIdToken = require('../cores/authVerify');
+const productModel = require('../models/products');
 
 class ProductController {
     /** [GET] /api/products
@@ -7,21 +6,21 @@ class ProductController {
      *  public
      */
     async index(req, res) {
-
-        // console.log('Request header: ', req.header('Authorization'));
-        const authHeader = req.header('Authorization');
-        const token = authHeader && authHeader.split(' ')[1];
-
+        const { id } = req.query;
+        console.log(id);
         try {
-            const decodedToken = await verifyIdToken(token);
-            console.log(decodedToken);
-
+            if (!id) {
+                const response = await productModel.find();
+                return res.json({ success: true, message: 'successfully', response });
+            }
+            const response = await productModel.findOne();
+            return res.json({ success: true, message: 'successfully', response });
         } catch (err) {
             console.log(err);
-            return res.json({ success: false, message: 'internal sever' });
+            return res.status(500).json({ success: false, message: 'Internal Server' });
         }
-
     }
+
 }
 
 module.exports = new ProductController;

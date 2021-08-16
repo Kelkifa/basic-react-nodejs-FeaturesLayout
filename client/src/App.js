@@ -14,6 +14,7 @@ import Cart from 'features/Cart';
 import MainLayout from 'components/Layouts/Main/MainLayout';
 import NotFound from 'components/NotFound';
 import firebase from 'firebase';
+import { getAll } from 'features/Product/productSlice';
 import { getMe } from 'app/userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
@@ -36,15 +37,13 @@ function App(props) {
     useEffect(() => {
         const unregisterAuthObserver = firebase.auth().onAuthStateChanged(async user => {
             if (!user) {
-                console.log('User is not logged in');
+                // console.log('User is not logged in');
                 return
             }
             try {
                 const actionResult = await dispatch(getMe());
-                console.log('Action Result', actionResult);
                 const currentUser = unwrapResult(actionResult);
-                console.log('Logged in user: ', currentUser);
-
+                // console.log('Logged in user: ', currentUser);
             } catch (err) {
                 console.log(`Failed to login: ${err.message}`);
             }

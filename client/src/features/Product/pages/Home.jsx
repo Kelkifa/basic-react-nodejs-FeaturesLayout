@@ -1,13 +1,27 @@
 import './home.scss';
 
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Card from '../components/Card';
-import React from 'react';
+import { getAll } from '../productSlice';
 
 Home.propTypes = {
     
 };
 
 function Home(props) {
+    const dispatch = useDispatch()
+    const product = useSelector(state => state.products);
+    console.log(product);
+    useEffect(()=>{
+        const getAllProducts = async () =>{
+            const result = await dispatch(getAll());
+        }
+
+        getAllProducts();
+        
+    },[])
 
     return (
         <div className="grid wide home-page">
@@ -41,16 +55,27 @@ function Home(props) {
                     <div className="home__content__right__cards">
                         <div className="grid wide-p97">
                             <div className="row-c10">
-                                <Card img="https://picsum.photos/500/400"
-                                    description="anh dep"
-                                    cost={300000}
-                                    position="Đồng Nai" 
-                                />
-                                <Card img="https://picsum.photos/500/400"
-                                    description="anh dep"
-                                    cost={300000}
-                                    position="Đồng Nai" 
-                                />
+                                {product.loading && 'Loading'}
+                                {!product.loading && 
+                                    <>
+                                        {
+                                            product.error ? 
+                                            'Internal Server' : 
+                                            product&&product.products.map(product =>
+                                                <Card 
+                                                    key={product._id}
+                                                    id={product._id}
+                                                    img={product.img[0]}
+                                                    description={product.description}
+                                                    cost={product.cost}
+                                                    likes={product.likes}
+                                                    position={product.position} 
+                                                />
+                                            )
+
+                                        }
+                                    </>
+                                }
                             </div>
                         </div>
                     </div>

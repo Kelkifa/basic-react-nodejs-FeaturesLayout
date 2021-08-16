@@ -1,10 +1,11 @@
+require('dotenv').config()
 const mongoose = require('mongoose');
 //Change it
-const MONGOOSE_URL = 'mongodb+srv://huan:Kelkifa123@cluster0.4ovly.mongodb.net/anime_movie?retryWrites=true&w=majority';
+const mongodbUrl = process.env.MONGODB_URL;
 
 async function connect() {
     try {
-        await mongoose.connect(MONGOOSE_URL || 'mongodb://localhost/anime_movie', {
+        await mongoose.connect(mongodbUrl || 'mongodb://localhost/banhang', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false,

@@ -4,6 +4,10 @@ const productApi = {
     getAll: (params) => {
         const url = '/products';
         return axiosClient.get(url, { params });
+    },
+    getOne: (params) => {
+        const url = '/products';
+        return axiosClient.get(url, { params });
     }
 }
 
