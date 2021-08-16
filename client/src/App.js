@@ -14,10 +14,11 @@ import Cart from 'features/Cart';
 import MainLayout from 'components/Layouts/Main/MainLayout';
 import NotFound from 'components/NotFound';
 import firebase from 'firebase';
-import { getAll } from 'features/Product/productSlice';
 import { getMe } from 'app/userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
+
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Lazy load - Code splitting
 const Product = React.lazy(() => import('features/Product'));
