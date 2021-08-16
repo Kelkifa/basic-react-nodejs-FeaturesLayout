@@ -147,6 +147,25 @@ REACT_APP_FIREBASE_API_KEY=
 REACT_APP_FIREBASE_AUTH_DOMAIN=
 ```
 
+- Verify user json file
+  serviceAccounKey.json
+
+```
+{
+    "type":
+    "project_id":
+    "private_key_id":
+    "private_key":
+    "client_email":
+    "client_id":
+    "auth_uri":
+    "token_uri":
+    "auth_provider_x509_cert_url":
+    "client_x509_cert_url":
+  }
+
+```
+
 ## Src
 
 - Setup to deloy to heroku: https://www.youtube.com/watch?v=xgvLP3f2Y7k
