@@ -59,12 +59,22 @@ client
 |__ src
 |  |__ app
 |  |  |__ store.js
+|  |  |__ userSlice.js
 |  |
 |  |__ api
 |  |  |__ axiosClient.js
+|  |  |__ productApi.js
+|  |  |__ userApi.js
 |  |
 |  |__ assets
-|  |  |__ gridLibrary.scss
+|  |  |__ cores
+|  |  |  |__ cores.js    // numberToCost
+|  |  |__ scss
+|  |  |  |__ componenets
+|  |  |     |__ btn.scss
+|  |  |     |__ gridLibrary.scss
+|  |  |__ styles
+|  |     |__ styles.js   //linkStyle
 |  |
 |  |__ components
 |  |
@@ -86,10 +96,29 @@ client
 |  |__ jsconfig.json
 |  |
 server
-|__ app
-|  |__ cores
-|  |  |__ connectDb.js
+|__ src
+|  |__ controllers
+|  |  |__ AuthController.js
+|  |  |__ CartController.js
+|  |  |__ ProductController.js
+|  |
+|  |__ midlewares
+|  |  |__ authMidleware.js
+|  |
 |  |__ models
+|  |  |__ products.js
+|  |  |__ users.js
+|  |
+|  |__ cores
+|  |  |__ authVerify.js    // verify acount firebase
+|  |  |__ connectDb.js
+|  |
+|  |__ routes
+|  |  |__ auth.js
+|  |  |__ cart.js
+|  |  |__ product.js
+|  |  |__ index.js
+|  |
 |__ index.js
 ```
 
@@ -105,7 +134,22 @@ server
 
 - Change Mongodb Url in file connectDb.js to your db
 
+- Resetup env file in server folder
+
+- env values
+
+MONGODB_URL=
+
+```
+REACT_APP_BASE_URL=
+API_URL='/api'
+
+REACT_APP_FIREBASE_API_KEY='AIzaSyCxYti9LK9rfbFU8Hf25F_OH4SOayk6K4A'
+REACT_APP_FIREBASE_AUTH_DOMAIN='banhang-8749b.firebaseapp.com'
+```
+
 ## Src
 
 - Setup to deloy to heroku: https://www.youtube.com/watch?v=xgvLP3f2Y7k
 - Create react app: https://vi.reactjs.org/docs/create-a-new-react-app.html
+- Firebase : https://www.youtube.com/watch?v=302PCo3poh4&list=LL&index=3&t=786s
