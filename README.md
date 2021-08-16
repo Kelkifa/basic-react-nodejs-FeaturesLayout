@@ -136,7 +136,7 @@ server
 
 - Resetup env file in server folder
 
-- env values
+- env values (hidden)
 
 ```
 MONGODB_URL=
@@ -147,7 +147,7 @@ REACT_APP_FIREBASE_API_KEY=
 REACT_APP_FIREBASE_AUTH_DOMAIN=
 ```
 
-- Verify user json file
+- Verify user json file (hidden)
   serviceAccounKey.json
 
 ```
