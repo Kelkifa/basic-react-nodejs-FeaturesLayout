@@ -1,0 +1,41 @@
+.user-btn {
+  position: relative;
+  color: #24292e;
+
+  padding-top: 5px;
+
+  cursor: pointer;
+
+  img {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+  }
+
+  &__hide {
+    border-radius: 4px;
+
+    width: 120px;
+
+    position: absolute;
+    right: 0;
+
+    background-color: white;
+
+    &__group {
+      padding: 4px 8px 4px 16px;
+      &__item {
+        padding: 4px 0;
+
+        &:hover {
+          color: red;
+        }
+      }
+    }
+
+    &__group ~ &__group {
+      border-top: 1.2px solid rgba(99, 96, 96, 0.185);
+    }
+  }
+}

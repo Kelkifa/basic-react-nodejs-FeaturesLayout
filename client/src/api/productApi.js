@@ -5,9 +5,10 @@ const productApi = {
         const url = '/products';
         return axiosClient.get(url, { params });
     },
-    getOne: (params) => {
+    getOne: (data) => {
         const url = '/products';
-        return axiosClient.get(url, { params });
+        console.log(data);
+        return axiosClient.post(url, data);
     }
 }
 

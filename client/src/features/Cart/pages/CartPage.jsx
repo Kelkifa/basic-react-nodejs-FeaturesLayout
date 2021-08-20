@@ -4,26 +4,47 @@ import 'assets/scss/components/btn.scss';
 import React from 'react';
 import Table from 'components/Table/Table';
 import { numberToCost } from 'assets/cores/cores';
-import productApi from 'api/productApi';
 import { useSelector } from 'react-redux';
 
 function CartPage(props) {
     const carts = useSelector(state => state.carts);
 
-    // const user = useSelector(state => state.user)
-    // console.log(user);
+    if(carts.loading)
+        return(
+            <div className="cart-page grid wide">
+            </div>
+        )
 
-    // HANDLER FUNCTIONS
-    // const testRequestClickHandler = async ()=>{
-    //     try{
-    //         const response = await productApi.getAll();
-    //         console.log(response);
-    //     }catch(err){
-    //         console.log(err);
+    if(carts.error)
+        return(
+            <div className="cart-page grid wide">
+                {carts.error}
+            </div>
+        )
+
+    // const carts = {carts:[
+    //     {
+    //         userId:'123456',
+    //         productId: '456',
+    //         soLuong: 1,
+    //         color: 'red',
+    //         shape: 'character 1',
+    //     },
+    //     {
+    //         userId:'abcdefgh',
+    //         productId: '789',
+    //         soLuong: 2,
+    //         color: 'black',
+    //         shape: 'character 2',
+    //     },
+    //     {
+    //         userId:'qjklmn',
+    //         productId: '101',
+    //         soLuong: 3,
+    //         color: 'orange',
+    //         shape: 'character 3',
     //     }
-    // }
-
-
+    // ]}
 
     return (
         <div className="cart-page grid wide">
@@ -56,8 +77,8 @@ function CartPage(props) {
                             ]
                         }
                     >
-                        {carts.map(cart => (
-                            <tr>
+                        {carts.carts.map(cart => (
+                            <tr key={cart._id}>
                                 <td><input type="checkbox" /></td>
                                 <td>{cart.name}</td>
                                 <td>{cart.description}</td>

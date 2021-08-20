@@ -1,10 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {VscLoading} from 'react-icons/vsc';
-
-LoadNotifice.propTypes = {
-    
-};
 
 function LoadNotifice(props) {
     return (

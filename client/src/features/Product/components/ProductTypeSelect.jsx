@@ -1,8 +1,9 @@
 import './productTypeSelect.scss';
+
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 import {FaRegCheckCircle} from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 ProductTypeSelect.propTypes = {
     name: PropTypes.string,

@@ -7,20 +7,12 @@ export const getAll = createAsyncThunk('product/getAll', async (params, thunkAPI
     return response;
 })
 
-export const getOne = createAsyncThunk('product/getOne', async (params) => {
-    console.log(params);
-    const response = await productApi.getOne(params);
-    return response;
-})
-
-
 const product = createSlice({
     name: 'products',
     initialState: {
         loading: true,
         error: null,
         products: [],
-        product: {}
     },
     reducers: {},
     extraReducers: {
@@ -37,20 +29,6 @@ const product = createSlice({
             state.error = false
             state.products = action.payload.response;
         },
-        //GET ALL
-        [getOne.pending]: (state, action) => {
-            state.loading = true;
-        },
-        [getOne.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = true;
-        },
-        [getOne.fulfilled]: (state, action) => {
-            state.loading = false;
-            state.error = false
-            state.product = action.payload.response;
-        },
-
     }
 });
 

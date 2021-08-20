@@ -1,36 +1,40 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import ProductTypeSelect from './ProductTypeSelect';
-import SuccessNotifice from '../../../components/Dialog/SuccessNotifice';
+
 import FailNotifice from '../../../components/Dialog/FailNotifice';
-import LoadNotifice from '../../../components/Dialog/LoadNotifice';
-import FormNotifice from '../../../components/Dialog/FormNotifice';
-import { useDispatch } from 'react-redux';
+import FormNotifice from 'components/Dialog/FormNotifice';
+import LoadNotifice from 'components/Dialog/LoadNotifice';
+import ProductTypeSelect from './ProductTypeSelect';
+import PropTypes from 'prop-types';
+import SuccessNotifice from 'components/Dialog/SuccessNotifice';
 import { addCart } from '../../Cart/cartSlice';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 AddCartForm.propTypes = {
     initialValues: PropTypes.object,
-    shape: PropTypes.array,
-    color: PropTypes.array,
+    shapes: PropTypes.array,
+    colors: PropTypes.array,
+    productId: PropTypes.string,
 };
 
 AddCartForm.defaultProps = {
     initialValues: {},
-    shape: [
-        {name:'shape1', image: ''},
-        {name:'shape2', image: ''},
-        {name:'shape3', image: ''},
+    shapes: [
+        {name:null, img: null},
+        {name:null, img: null},
+        {name:null, img: null},
     ],  
-    color: []
+    colors: [
+        {name:null, img: null},
+        {name:null, img: null},
+        {name:null, img: null},
+    ],
+    productId: null,
 }
 
 function AddCartForm(props) {
-    const dispatch = useDispatch()
-    const history = useHistory();
-
+    const dispatch = useDispatch();
     // PROPS
-    const {initialValues, shape, color} = props;
+    const {initialValues, shapes, colors, productId} = props;
 
     // STATES
     const [values, setValues] = useState({...initialValues});
@@ -56,10 +60,10 @@ function AddCartForm(props) {
         
     }
     // Add cart click
-    const btnClickHandler = (type)=>{
+    const btnClickHandler = async (type)=>{
 
         // Varidation
-        if((!values.shape && shape.length>0) || (!values.color && color.length>0)){
+        if((!values.shape && shapes.length>0) || (!values.color && colors.length>0)){
             setFailNotifice(true);
             setTimeout(()=>{setFailNotifice(false)}, 1500);
             return;
@@ -67,10 +71,11 @@ function AddCartForm(props) {
 
         // Add Cart
         if(type === 'cart'){
-            const action = addCart(values);
-            dispatch(action);
-            history.push('/cart');
-            return;
+            try{
+                await dispatch(addCart(values))
+            }catch(err){
+                console.log(err);
+            }
         }
 
     }
@@ -80,7 +85,7 @@ function AddCartForm(props) {
             <ProductTypeSelect
                 name ="shape"
                 label = "Hình dáng"
-                options = {shape}
+                options = {shapes}
                 type= 'select'  //select or number
                 
                 valueChange={valueChangeHandler}
@@ -88,7 +93,7 @@ function AddCartForm(props) {
              <ProductTypeSelect
                 name ="color"
                 label = "Màu sắc"
-                options = {color}
+                options = {colors}
                 type= 'select'  //select or number
                 
                 valueChange={valueChangeHandler}
@@ -96,7 +101,7 @@ function AddCartForm(props) {
              <ProductTypeSelect
                 name ="soLuong"
                 label = "Số lượng"
-                options = {color}
+                options = {colors}
                 type= 'number'  //select or number
                 remainProducts={100}
                 

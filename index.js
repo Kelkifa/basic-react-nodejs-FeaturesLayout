@@ -16,15 +16,15 @@ app.use(express.json());
 /** cors */
 // --> Add this
 const cors = require('cors');
-const whitelist = ['http://localhost:3000/', 'http://localhost:8080/'];
+const whitelist = ['http://localhost:3000/', 'http://localhost:8080/', 'http://127.0.0.1:8080/'];
 const corsOptions = {
     origin: function (origin, callback) {
-        // console.log("** Origin of request " + origin)
+        console.log("** Origin of request " + origin)
         if (whitelist.indexOf(origin) !== -1 || !origin) {
-            // console.log("Origin acceptable")
+            console.log("Origin acceptable")
             callback(null, true)
         } else {
-            // console.log("Origin rejected")
+            console.log("Origin rejected")
             callback(new Error('Not allowed by CORS'))
         }
     }

@@ -1,27 +1,11 @@
 import './home.scss';
 
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
 import Card from '../components/Card';
-import { getAll } from '../productSlice';
-
-Home.propTypes = {
-    
-};
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 function Home(props) {
-    const dispatch = useDispatch()
-    const product = useSelector(state => state.products);
-    console.log(product);
-    useEffect(()=>{
-        const getAllProducts = async () =>{
-            const result = await dispatch(getAll());
-        }
-
-        getAllProducts();
-        
-    },[])
+const products = useSelector(state => state.products);
 
     return (
         <div className="grid wide home-page">
@@ -55,13 +39,13 @@ function Home(props) {
                     <div className="home__content__right__cards">
                         <div className="grid wide-p97">
                             <div className="row-c10">
-                                {product.loading && 'Loading'}
-                                {!product.loading && 
+                                {products.loading && 'Loading ...'}
+                                {!products.loading && 
                                     <>
                                         {
-                                            product.error ? 
+                                            products.error ? 
                                             'Internal Server' : 
-                                            product&&product.products.map(product =>
+                                            products&&products.products.map(product =>
                                                 <Card 
                                                     key={product._id}
                                                     id={product._id}

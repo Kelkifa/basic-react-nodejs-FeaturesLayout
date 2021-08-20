@@ -40,11 +40,36 @@
       outline: none;
     }
     .cart-icon {
+      position: relative;
+
       justify-self: end;
       align-self: center;
 
       color: white;
       font-size: 24px;
+
+      &__number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: absolute;
+        right: 0;
+        top: -10px;
+
+        width: 17px;
+        height: 17px;
+
+        border-radius: 50%;
+        // border: 1.5px solid white;
+
+        background-color: white;
+
+        font-size: 10px;
+        // color: white;
+        color: #fa7d19;
+        font-weight: bold;
+      }
     }
   }
 }

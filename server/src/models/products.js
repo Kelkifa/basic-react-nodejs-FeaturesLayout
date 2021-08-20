@@ -10,10 +10,14 @@ const products = new Schema(
         cost: { type: Number, require },
         position: { type: String },
         img: [String],
-        shapes: [String],
-        colors: [String],
-        shapeLinks: [String],
-        colorLinks: [String],
+        shapes: [{
+            name: { type: String },
+            img: { type: String },
+        }],
+        colors: [{
+            name: { type: String },
+            img: { type: String },
+        }],
         likes: { type: Number, min: 0, default: 0 },
         sold: { type: Number, default: 0 },
         type: { type: String, default: 'tiện ích' }, //

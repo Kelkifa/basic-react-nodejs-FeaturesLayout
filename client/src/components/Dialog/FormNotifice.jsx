@@ -1,11 +1,8 @@
 import './formNotifice.scss';
-import React from 'react';
-import PropTypes from 'prop-types';
+
 import { FastField, Form, Formik } from 'formik';
 
-FormNotifice.propTypes = {
-    
-};
+import React from 'react';
 
 function FormNotifice(props) {
     const initialValues = {
@@ -19,8 +16,8 @@ function FormNotifice(props) {
                 >
 
                     {formikProps=>{
-                        const {values, errors, touched} = formikProps;
-                        console.log(values);
+                        // const {values} = formikProps;
+                    
                         return(
                             <Form>
                                 <FastField 

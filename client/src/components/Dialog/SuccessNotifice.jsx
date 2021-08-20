@@ -1,11 +1,7 @@
 import './notifice.scss';
-import React from 'react';
-import PropTypes from 'prop-types';
-import {MdDone} from 'react-icons/md';
 
-SuccessNotifice.propTypes = {
-    
-};
+import {MdDone} from 'react-icons/md';
+import React from 'react';
 
 function SuccessNotifice(props) {
     return (

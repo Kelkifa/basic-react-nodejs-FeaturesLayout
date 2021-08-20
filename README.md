@@ -170,4 +170,6 @@ REACT_APP_FIREBASE_AUTH_DOMAIN=
 
 - Setup to deloy to heroku: https://www.youtube.com/watch?v=xgvLP3f2Y7k
 - Create react app: https://vi.reactjs.org/docs/create-a-new-react-app.html
-- Firebase : https://www.youtube.com/watch?v=302PCo3poh4&list=LL&index=3&t=786s
+- Firebase : https://www.youtube.com/watch?v=302PCo3poh4&list=LL&index=3&
+  t=786s
+  https://github.com/firebase/firebaseui-webs

@@ -1,10 +1,7 @@
 import './notifice.scss';
-import React from 'react';
-import PropTypes from 'prop-types';
+
 import {IoWarningSharp} from 'react-icons/io5';
-FailNotifice.propTypes = {
-    
-};
+import React from 'react';
 
 function FailNotifice(props) {
     return (

@@ -6,7 +6,7 @@ const authMidleware = require('../midlewares/authMidleware');
 
 function router(app) {
     app.use('/api/auth', authMidleware, authRouter);
-    app.use('/api/cart', authMidleware, cartRouter);
+    app.use('/api/carts', authMidleware, cartRouter);
     app.use('/api/products', productRouter);
 }
 

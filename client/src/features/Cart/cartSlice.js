@@ -1,44 +1,70 @@
-const { createSlice } = require("@reduxjs/toolkit");
+import cartApi from "api/cartApi";
 
+const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
+
+export const getCarts = createAsyncThunk('carts/getCarts', async (params, thunkApi) => {
+    // const carts = await 
+    const carts = await cartApi.getAll();
+    return carts;
+});
+
+export const addCart = createAsyncThunk('carts/addCarts', async (cartData) => {
+    const response = await cartApi.addCart(cartData);
+    return response;
+})
 
 const cart = createSlice({
     name: 'carts',
-    initialState: [
-        {
-            id: '12312313532asdkjla1',
-            name: 'Chậu hoa thu 1',
-            description: 'Chau hao dep thu 1',
-            color: 'red',
-            cost: '100000',
-            shape: 'shape x',
-            soLuong: '1',
-        }, {
-            id: '12312313532asdkjla2',
-            name: 'Chậu hoa thu 2',
-            description: 'Chau hao dep thu 2 ',
-            color: 'red',
-            cost: '300000',
-            shape: 'shape l',
-            soLuong: '2',
-        }, {
-            id: '12312313532asdkjla3',
-            name: 'Chậu hoa thu 3',
-            description: 'Chau hao dep thu 3 ',
-            color: 'yellow',
-            cost: '2000009',
-            shape: 'shape M',
-            soLuong: '3',
+    initialState: {
+        loading: true,
+        error: null,
+        carts: [],
+    },
+    reducers: {},
+    extraReducers: {
+        // GET CART
+        [getCarts.pending]: (state, action) => {
+            state.loading = true;
         },
-    ],
-    reducers: {
-        addCart: (state, action) => {
-            state.push(action.payload);
-        }
+        [getCarts.rejected]: (state, action) => {
+            state.loading = false;
+            state.error = true;
+        },
+        [getCarts.fulfilled]: (state, action) => {
+            console.log(action.payload);
+            state.loading = false;
+            if (action.payload.success !== true) {
+                state.error = action.payload.message;
+                return state;
+            }
+            state.error = false;
+            state.carts = action.payload.data;
+            return state;
+        },
+
+        // ADD CART
+        [addCart.pending]: (state, action) => {
+            state.loading = true;
+        },
+        [addCart.rejected]: (state, action) => {
+            state.loading = false;
+            state.error = true;
+        },
+        [addCart.fulfilled]: (state, action) => {
+            state.loading = false;
+            if (action.payload.success !== true) {
+                state.error = action.payload.message;
+                return state;
+            }
+            console.log("[CART SLIDE]", state.carts);
+            state.error = false;
+            state.carts.unshift(action.payload.response);
+            return state;
+        },
     }
 });
 
-const { reducer, actions } = cart;
-export const { addCart } = actions;
+const { reducer } = cart;
 
 export default reducer;
 

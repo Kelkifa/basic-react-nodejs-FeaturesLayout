@@ -1,5 +1,6 @@
 import './assets/scss/components/gridLibrary.scss';
 import './assets/scss/base.scss';
+import 'assets/scss/components/animations.scss';
 
 import React, { Suspense, useEffect } from 'react';
 import {
@@ -8,15 +9,22 @@ import {
     Switch
 } from "react-router-dom";
 
+import Admin from 'features/Admin';
+import AdminLayout from 'components/Layouts/Admin/AdminLayout';
 import Auth from 'features/auth';
 import AuthLayout from 'components/Layouts/Auth/AuthLayout';
 import Cart from 'features/Cart';
+import Game from 'features/Game';
 import MainLayout from 'components/Layouts/Main/MainLayout';
 import NotFound from 'components/NotFound';
 import firebase from 'firebase';
+import { getAll } from 'features/Product/productSlice';
+import { getCarts } from 'features/Cart/cartSlice';
 import { getMe } from 'app/userSlice';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
+
+// import { unwrapResult } from '@reduxjs/toolkit';
+
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -37,14 +45,21 @@ function App(props) {
 
     useEffect(() => {
         const unregisterAuthObserver = firebase.auth().onAuthStateChanged(async user => {
+            await dispatch(getAll());
             if (!user) {
-                // console.log('User is not logged in');
+                console.log('User is not logged in');
                 return
             }
             try {
-                const actionResult = await dispatch(getMe());
-                const currentUser = unwrapResult(actionResult);
+                await Promise.all([
+                    dispatch(getMe()),
+                    dispatch(getCarts()),
+                ])
+                // const actionResult = await dispatch(getMe());
+                // const currentUser = unwrapResult(actionResult);
                 // console.log('Logged in user: ', currentUser);
+                // Cart call api
+                // await dispatch(getCarts());
             } catch (err) {
                 console.log(`Failed to login: ${err.message}`);
             }
@@ -58,11 +73,22 @@ function App(props) {
             <Suspense fallback={<div>Loading ... </div>}>
                 <Router>
                     <Switch>
+                        <Route path='/playTogether'>
+                            <Game />
+                        </Route>
+
+                        <Route path='/admin' >
+                            <AdminLayout>
+                                <Admin></Admin>
+                            </AdminLayout>
+                        </Route>
+
                         <Route exac path='/auth'>
                             <AuthLayout>
                                 <Route component={Auth}></Route>
                             </AuthLayout>
                         </Route>
+
                         <Route >
                             <MainLayout>
                                 <Switch>

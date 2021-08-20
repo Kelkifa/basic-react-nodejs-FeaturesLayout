@@ -4,7 +4,7 @@ async function authMidleware(req, res, next) {
     const authHeader = req.header('Authorization');
 
     const token = authHeader && authHeader.split(' ')[1];
-    // console.log({ token });
+
 
     // Khong co Token
     if (!token)

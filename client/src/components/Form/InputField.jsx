@@ -1,9 +1,12 @@
 import './inputField.scss';
 
-import { Form, FormGroup, Input, Label } from 'reactstrap'
-
 import PropTypes from 'prop-types';
 import React from 'react';
+
+// import { Form, FormGroup, Input, Label } from 'reactstrap'
+
+
+
 
 InputField.propTypes = {
     form: PropTypes.object.isRequired,
@@ -21,8 +24,8 @@ InputField.defaultProps = {
 }
 
 function InputField(props) {
-    const {
-        form, field,
+    const { //form,
+        field,
         label, placeholder, type
     } = props;
     
