@@ -1,25 +1,73 @@
 $width-leftbar: 256px;
-
+$time-scale: 0.5s;
 .admin-layout {
-  position: relative;
-
   display: flex;
 
   // LEFTBAR
   &__leftbar {
+    position: relative;
     width: $width-leftbar;
+
+    transition: linear $time-scale;
+    transform-origin: 0 0;
+
+    &__btn {
+      position: absolute;
+      right: -20px;
+      top: calc(50% - 20px);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 20px;
+      height: 40px;
+
+      border-radius: 0 4px 4px 0;
+
+      background-color: rgba(117, 110, 110, 0.397);
+
+      color: white;
+
+      cursor: pointer;
+    }
+
+    &--hide {
+      // animation-name: show;
+      // animation-duration: 0.5s;
+      // animation-iteration-count: 1;
+      width: 0;
+    }
   }
 
   // BODY (Header + content)
   &__content {
     width: calc(100% - #{$width-leftbar});
 
+    transition: linear $time-scale;
+
     // HEADER
     &__header {
+    }
+
+    &--full-width {
+      width: 100%;
     }
   }
 }
 
+// @keyframes show {
+//   0% {
+//     transform: translateX(0);
+//   }
+//   50% {
+//     transform: translateX(-50%);
+//   }
+//   100% {
+//     transform: translateX(-100%);
+//     width: 0;
+//   }
+// }
 @media screen and (max-width: 760px) {
   .admin-layout {
     &__leftbar {
