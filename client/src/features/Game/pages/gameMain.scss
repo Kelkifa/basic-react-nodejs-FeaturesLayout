@@ -1,0 +1,22 @@
+.game-main {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+
+  &__img-container {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 350px;
+    flex-shrink: 0;
+
+    img {
+      max-width: 100%;
+    }
+  }
+}

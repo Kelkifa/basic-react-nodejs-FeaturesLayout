@@ -20,3 +20,15 @@ Content-Type: application/json
     "color": "white",
     "shape":"character 1",
 }
+
+
+###
+GET http://localhost:8080/api/games
+
+###
+POST http://localhost:8080/api/games
+Content-Type: application/json
+
+{
+    "img":"https://scontent-hkg4-1.xx.fbcdn.net/v/t1.15752-9/227408075_522764838958051_1658356171612245513_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=ae9488&_nc_ohc=vxfuZcAqVWIAX-6R6Mq&_nc_ht=scontent-hkg4-1.xx&oh=94818d7820f417f51dabaa5673e8e93b&oe=61480015"
+}
