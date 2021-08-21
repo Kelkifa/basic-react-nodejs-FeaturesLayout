@@ -16,7 +16,7 @@ app.use(express.json());
 /** cors */
 // --> Add this
 const cors = require('cors');
-const whitelist = ['http://localhost:3000/', 'http://localhost:8080/', 'http://127.0.0.1:8080/', 'https://photo-store.herokuapp.com/'];
+const whitelist = ['http://localhost:3000/', 'http://localhost:8080/', 'http://127.0.0.1:8080/', 'https://photo-store.herokuapp.com'];
 const corsOptions = {
     origin: function (origin, callback) {
         console.log("** Origin of request " + origin)
