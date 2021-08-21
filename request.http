@@ -30,5 +30,5 @@ POST http://localhost:8080/api/games
 Content-Type: application/json
 
 {
-    "img":"https://scontent-hkg4-1.xx.fbcdn.net/v/t1.15752-9/227408075_522764838958051_1658356171612245513_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=ae9488&_nc_ohc=vxfuZcAqVWIAX-6R6Mq&_nc_ht=scontent-hkg4-1.xx&oh=94818d7820f417f51dabaa5673e8e93b&oe=61480015"
+    "img":"https://scontent-hkg4-1.xx.fbcdn.net/v/t1.15752-9/154332554_435373054213763_2383223788848771250_n.png?_nc_cat=108&ccb=1-5&_nc_sid=ae9488&_nc_ohc=cvZ6liyeuN0AX-1XwSh&_nc_ht=scontent-hkg4-1.xx&oh=0b9f924a1e9ca3cc6e9594f9f0f66a8d&oe=6146ECB9"
 }

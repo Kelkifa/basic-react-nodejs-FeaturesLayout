@@ -1,4 +1,4 @@
-// const verifyIdToken = require('../cores/authVerify');
+const verifyIdToken = require('../cores/authVerify');
 
 async function authMidleware(req, res, next) {
     // const authHeader = req.header('Authorization');
