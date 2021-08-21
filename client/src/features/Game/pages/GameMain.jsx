@@ -65,11 +65,14 @@ function GameMain(props) {
     
     return (
         <div className='game-main'>
-            {dataInfo.data.map(data=> 
-                <div className="game-main__img-container">
-                    <img src={data.img} alt='err' />    
-                </div>
-            )}
+            <h3>Bờ lay tu ghe đờ</h3>
+            <div className="game-main__img-container">
+                {dataInfo.data.map(data=> 
+                    <div key={data._id} className="game-main__img-container__img">
+                        <img src={data.img} alt='err' />    
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
