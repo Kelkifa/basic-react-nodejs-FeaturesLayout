@@ -22,29 +22,6 @@ function CartPage(props) {
             </div>
         )
 
-    // const carts = {carts:[
-    //     {
-    //         userId:'123456',
-    //         productId: '456',
-    //         soLuong: 1,
-    //         color: 'red',
-    //         shape: 'character 1',
-    //     },
-    //     {
-    //         userId:'abcdefgh',
-    //         productId: '789',
-    //         soLuong: 2,
-    //         color: 'black',
-    //         shape: 'character 2',
-    //     },
-    //     {
-    //         userId:'qjklmn',
-    //         productId: '101',
-    //         soLuong: 3,
-    //         color: 'orange',
-    //         shape: 'character 3',
-    //     }
-    // ]}
 
     return (
         <div className="cart-page grid wide">
@@ -64,7 +41,7 @@ function CartPage(props) {
             </div>
             <div className="row cart__group">
                 <div className="c-12 cart__table">
-                    <Table theaders={[
+                    {/* <Table theaders={[
                                 '',
                                 'Sản phẩm',
                                 'Mô tả',
@@ -95,7 +72,7 @@ function CartPage(props) {
                             </tr>
                         ))}
                         
-                    </Table>
+                    </Table> */}
                 </div>
             </div>
         </div>

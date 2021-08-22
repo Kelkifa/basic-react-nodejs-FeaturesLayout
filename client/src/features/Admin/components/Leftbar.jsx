@@ -1,7 +1,6 @@
 import './leftbar.scss';
 
 import { FaBook, FaUserFriends } from 'react-icons/fa';
-import React, { useState } from 'react';
 
 import AdminLeftbarDropdown from './AdminLeftbarDropdown';
 import {BsFillBarChartFill} from 'react-icons/bs';

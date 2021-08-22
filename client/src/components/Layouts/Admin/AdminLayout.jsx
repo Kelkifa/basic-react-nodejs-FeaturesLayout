@@ -46,7 +46,9 @@ function AdminLayout(props) {
                 <div className="admin-layout__content__header">
                     <Header />
                 </div>
-                {children}
+                <div className="admin-layout__content__detail">
+                    {children}
+                </div>
             </div>
         </div>
     );

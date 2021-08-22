@@ -1,17 +1,25 @@
 import './header.scss';
 
 import {AiOutlineMenu, AiOutlineOrderedList} from 'react-icons/ai';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import {FiMail} from 'react-icons/fi';
 import {IoMdNotificationsOutline} from 'react-icons/io';
-import PropTypes from 'prop-types';
 import React from 'react';
+import { linkStyle } from 'assets/styles/styles';
 
-Header.propTypes = {
+const getLinkTo = (url, value)=>{
+    const indexCurrUrl = url.indexOf(value)+value.length;
+    return  url.substr(0,indexCurrUrl);
     
-};
+}
 
 function Header(props) {
+    const match = useRouteMatch();
+    const url = match.url;
+    const urlArr = url.split('/');
+    urlArr.shift();
+
     return (
         <div className='admin-header-container'>
             <div className="admin-header grid">
@@ -32,7 +40,20 @@ function Header(props) {
                 </div>
 
                 <div className="admin-header__botton">
-                    
+                    {
+                        urlArr.map((value, index)=>{
+                            const currUrl = getLinkTo(url, value);
+                            
+                            return(
+                                <span key={value}>
+                                    <Link to={currUrl} style={linkStyle}>
+                                        <span className='admin-header__botton__link'>{value}</span> 
+                                    </Link>
+                                    <span> / </span>
+                                </span>
+                            )
+                        })
+                    }
                 </div>
             </div>
         </div>

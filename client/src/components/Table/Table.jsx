@@ -1,32 +1,35 @@
 import './table.scss';
 
 import PropTypes from 'prop-types';
-import React from 'react';
 
 Table.propTypes = {
-    theaders: PropTypes.array,
-    tbodies: PropTypes.array,    
+
 };
 
 Table.defaultProps = {
-    theaders:[],
+ 
 }
 
 function Table(props) {
-    const {theaders, children} = props;
 
     return (
-        <table className="table-component">
+        <table className='component-table custom-scroll'>
             <thead>
                 <tr>
-                    {theaders.map(theader=>(
-                        <th key={theader}>{theader}</th>
-                    ))}
+                    <th>stt</th>
+                    <th>name</th>
+                    <th>type</th>
                 </tr>
             </thead>
+
             <tbody>
-                    {children}
+                <tr className='component-table__body'>
+                    <td>a</td>
+                    <td>b</td>
+                    <td>c</td>
+                </tr>
             </tbody>
+
         </table>
     );
 }

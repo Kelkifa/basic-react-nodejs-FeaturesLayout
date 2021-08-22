@@ -1,11 +1,17 @@
-.table-component {
-  width: 100%;
-  thead th {
-    border-bottom: 1px solid rgba(56, 54, 54, 0.308);
-  }
+.component-table {
+  border-collapse: collapse;
+
+  overflow: auto;
   th,
   td {
-    text-align: left;
     padding: 8px;
+  }
+
+  th {
+    font-size: 14px;
+  }
+
+  &__body {
+    border-top: 1.5px solid rgba(83, 82, 82, 0.267);
   }
 }

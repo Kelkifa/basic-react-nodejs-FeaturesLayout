@@ -33,9 +33,6 @@ $time-scale: 0.3s;
     }
 
     &--hide {
-      // animation-name: show;
-      // animation-duration: 0.5s;
-      // animation-iteration-count: 1;
       width: 0;
     }
   }
@@ -50,24 +47,22 @@ $time-scale: 0.3s;
     &__header {
     }
 
+    &__detail {
+      margin: 30px auto;
+      width: 95%;
+      padding: 15px;
+
+      border-radius: 3px;
+
+      background-color: white;
+    }
+
     &--full-width {
       width: 100%;
     }
   }
 }
 
-// @keyframes show {
-//   0% {
-//     transform: translateX(0);
-//   }
-//   50% {
-//     transform: translateX(-50%);
-//   }
-//   100% {
-//     transform: translateX(-100%);
-//     width: 0;
-//   }
-// }
 @media screen and (max-width: 760px) {
   .admin-layout {
     &__leftbar {
