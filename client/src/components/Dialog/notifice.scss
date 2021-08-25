@@ -1,40 +1,44 @@
 .dialog__content {
-  padding: 16px 15px 0 15px;
-  max-width: 250px;
+	padding: 16px 15px 0 15px;
+	max-width: 250px;
 
-  border-radius: 3px;
-  background-color: white;
+	border-radius: 3px;
 
-  &__icon {
-    display: flex;
-    justify-content: center;
+	background-color: rgba(53, 50, 50, 0.493);
 
-    font-size: 50px;
+	color: white;
+	font-size: 18px;
+  
+	&__icon {
+		display: flex;
+		justify-content: center;
 
-    .icon {
-      &--fail {
-        color: #ffc107;
-      }
-      &--success {
-        color: #198754;
-      }
-      &--loading {
-        animation: spin 2s linear infinite;
-      }
+		font-size: 50px;
 
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
+		.icon {
+			&--fail {
+				color: #ffc107;
+			}
+			&--success {
+				color: #198754;
+			}
+			&--loading {
+				animation: spin 2s linear infinite;
+			}
 
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    }
-  }
+			@keyframes spin {
+				0% {
+					transform: rotate(0deg);
+				}
 
-  &__text {
-    text-align: center;
-  }
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+		}
+	}
+
+	&__text {
+		text-align: center;
+	}
 }

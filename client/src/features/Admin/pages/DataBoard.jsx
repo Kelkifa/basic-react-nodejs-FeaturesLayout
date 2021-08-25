@@ -1,9 +1,5 @@
 function DataBoard(props) {
-    return (
-        <div>
-            databoard hello
-        </div>
-    );
+	return <div>databoard hello</div>;
 }
 
 export default DataBoard;

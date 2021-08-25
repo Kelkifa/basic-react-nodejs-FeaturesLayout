@@ -17,6 +17,7 @@ import Cart from 'features/Cart';
 import Game from 'features/Game';
 import MainLayout from 'components/Layouts/Main/MainLayout';
 import NotFound from 'components/NotFound';
+import Test from 'components/Test';
 import firebase from 'firebase';
 import { getAll } from 'features/Product/productSlice';
 import { getCarts } from 'features/Cart/cartSlice';
@@ -54,12 +55,7 @@ function App(props) {
                 await Promise.all([
                     dispatch(getMe()),
                     dispatch(getCarts()),
-                ])
-                // const actionResult = await dispatch(getMe());
-                // const currentUser = unwrapResult(actionResult);
-                // console.log('Logged in user: ', currentUser);
-                // Cart call api
-                // await dispatch(getCarts());
+                ]);
             } catch (err) {
                 console.log(`Failed to login: ${err.message}`);
             }
@@ -92,6 +88,7 @@ function App(props) {
                         <Route >
                             <MainLayout>
                                 <Switch>
+                                    <Route exac path="/test" component={Test} />
                                     <Route exac path="/cart" component={Cart} />
                                     <Route exac path="/" component={Product} />
                                     <Route component={NotFound}></Route>

@@ -1,5 +1,9 @@
 const gameModel = require('../models/games');
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 class GameControlelr {
     /**[GET] /api/games
      * response all game imgs
@@ -15,18 +19,20 @@ class GameControlelr {
         }
     }
 
-    /**[POST] /api/games 
+    /**[POST] /api/games/ 
      * store new game img
      * public
     */
-    async storeImg(req, res) {
-        const { img } = req.body;
-        console.log(img);
-        if (!img)
+    async addMany(req, res) {
+        const { data } = req.body;
+
+        if (!data.length)
             return res.json({ success: false, message: 'bad request' });
+
         try {
-            const newGame = new gameModel({ img });
-            await newGame.save();
+            const newImgs = data.map(value => { return { img: value } });
+            await gameModel.create(newImgs);
+            await sleep(1000);
             return res.json({ success: true, message: 'successfully' });
 
         } catch (err) {

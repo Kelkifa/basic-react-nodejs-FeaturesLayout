@@ -2,11 +2,11 @@
 GET http://localhost:8080/api/carts
 ###
 GET http://localhost:8080/api/products
-Content-Type: application/json
+# Content-Type: application/json
 
-{
-    "id":"61016070c895a3230806395c"
-}
+# # {
+# #     "id":"61016070c895a3230806395c"
+# # }
 
 
 ###
@@ -30,5 +30,16 @@ POST http://localhost:8080/api/games
 Content-Type: application/json
 
 {
-    "img":"https://scontent.fsgn5-2.fna.fbcdn.net/v/t1.15752-9/234387219_1219491618557916_2625277096202580176_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=ae9488&_nc_ohc=-9Kwk38lJ7AAX9nguIf&_nc_ht=scontent.fsgn5-2.fna&oh=0778c95094d6d80556e4d8387471021d&oe=6145E502"
+    "img":"https://scontent-hkg4-1.xx.fbcdn.net/v/t1.15752-9/236459746_1032061220899818_5628993113883529153_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=ae9488&_nc_ohc=w61tuoNFUDIAX9fB1UN&_nc_ht=scontent-hkg4-1.xx&oh=a5af8dd65b288f024d1519f2fd015b60&oe=614979A9"
 }
+###
+
+DELETE http://localhost:8080/api/products/delete/
+Content-Type: application/json
+
+{
+    "productIds":["123","456"]
+}
+
+###
+PATCH http://localhost:8080/api/products/restore

@@ -1,0 +1,24 @@
+.admin-create {
+	// row-gap: 15px;
+	&__notifice {
+	}
+
+	&__content {
+		&__header {
+			margin: 0;
+			padding-bottom: 50px;
+
+			text-align: center;
+			font-size: 30px;
+		}
+		&__form {
+			row-gap: 15px;
+			&__btn {
+				// margin-top: 15px;
+				button {
+					grid-column-end: end-line;
+				}
+			}
+		}
+	}
+}

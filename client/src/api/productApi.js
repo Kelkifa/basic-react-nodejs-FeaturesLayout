@@ -7,9 +7,14 @@ const productApi = {
     },
     getOne: (data) => {
         const url = '/products';
-        console.log(data);
+
         return axiosClient.post(url, data);
-    }
+    },
+    delete: (data) => {
+        console.log('[PRODUCT API]', data);
+        const url = '/products/delete';
+        return axiosClient.patch(url, data);
+    },
 }
 
 export default productApi;

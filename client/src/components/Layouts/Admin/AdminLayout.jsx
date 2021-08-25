@@ -1,57 +1,55 @@
-import './adminLayout.scss';
+import "./adminLayout.scss";
 
-import React, { useState } from 'react';
+import React, {useState} from "react";
 
-import Header from 'features/Admin/components/Header';
-import Leftbar from 'features/Admin/components/Leftbar';
+import Header from "features/Admin/components/Header";
+import Leftbar from "features/Admin/components/Leftbar";
 
 function AdminLayout(props) {
-    const {children} = props;
+	const {children} = props;
 
-    // STATES
-    const [isShowLeftbar, setIsShowLeftbar] = useState(true);
+	// STATES
+	const [isShowLeftbar, setIsShowLeftbar] = useState(true);
 
-    // HANDLE FUNCTIONS
-    
-    // Show/hide leftbar 
-    const handleShowHideLeftbar = ()=>{
-        setIsShowLeftbar(!isShowLeftbar);
-    }
-    
-    return (
-        <div className='admin-layout'>
-            <div 
-                className={
-                    isShowLeftbar 
-                    ? 'admin-layout__leftbar'
-                    : 'admin-layout__leftbar admin-layout__leftbar--hide'
-                }
-            >
-                <Leftbar isShow={isShowLeftbar} />
-                
-                <div 
-                    className="admin-layout__leftbar__btn"
-                    onClick={handleShowHideLeftbar}
-                >
-                    h
-                </div>
-            </div>
-            <div 
-                className={
-                    isShowLeftbar
-                    ? "admin-layout__content"
-                    : "admin-layout__content admin-layout__content--full-width"
-                }
-            >
-                <div className="admin-layout__content__header">
-                    <Header />
-                </div>
-                <div className="admin-layout__content__detail">
-                    {children}
-                </div>
-            </div>
-        </div>
-    );
+	// HANDLE FUNCTIONS
+
+	// Show/hide leftbar
+	const handleShowHideLeftbar = () => {
+		setIsShowLeftbar(!isShowLeftbar);
+	};
+
+	return (
+		<div className="admin-layout">
+			<div
+				className={
+					isShowLeftbar
+						? "admin-layout__leftbar"
+						: "admin-layout__leftbar admin-layout__leftbar--hide"
+				}
+			>
+				<Leftbar isShow={isShowLeftbar} />
+
+				<div
+					className="admin-layout__leftbar__btn"
+					onClick={handleShowHideLeftbar}
+				>
+					h
+				</div>
+			</div>
+			<div
+				className={
+					isShowLeftbar
+						? "admin-layout__content custom-scroll"
+						: "admin-layout__content custom-scroll admin-layout__content--full-width"
+				}
+			>
+				<div className="admin-layout__content__header">
+					<Header />
+				</div>
+				<div className="admin-layout__content__detail">{children}</div>
+			</div>
+		</div>
+	);
 }
 
 export default AdminLayout;

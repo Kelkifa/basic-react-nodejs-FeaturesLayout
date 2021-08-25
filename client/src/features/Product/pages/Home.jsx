@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 
 function Home(props) {
 const products = useSelector(state => state.products);
+console.log(`[PRODUCTS]`,products);
 
     return (
         <div className="grid wide home-page">
@@ -45,7 +46,7 @@ const products = useSelector(state => state.products);
                                         {
                                             products.error ? 
                                             'Internal Server' : 
-                                            products&&products.products.map(product =>
+                                            products&&products.data.map(product =>
                                                 <Card 
                                                     key={product._id}
                                                     id={product._id}

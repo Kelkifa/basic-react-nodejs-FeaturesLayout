@@ -29,3 +29,65 @@ const products = new Schema(
 products.plugin(mongoose_delete, { overrideMethods: 'all' });
 
 module.exports = mongoose.model('products', products);
+
+//fake product
+// const products = [
+//     {
+//         name: 'Chau cay',
+//         description: 'Chay cay cong nghe in 3d dep la',
+//         cost: 300000,
+//         position: 'Dong Nai',
+//         img: '',
+//         shapes: [
+//             {
+//                 name: 'dai',
+//                 img: '',
+//             },
+//             {
+//                 name: 'ngan',
+//                 img: ''
+//             }
+//         ],
+//         colors: [
+//             {
+//                 name: 'do',
+//                 img: ''
+//             }, {
+//                 name: 'vang',
+//                 img: ''
+//             }, {
+//                 name: 'cam',
+//                 img: ''
+//             }
+
+//         ],
+//         likes: 10,
+//         sold: 20,
+//         type: 'tien ich', //   
+//     }, {
+//         name: 'Mo hinh',
+//         description: 'Mo hinh cong nghe in 3d dep la',
+//         cost: 900000,
+//         position: 'Dong Nai',
+//         img: '',
+//         shapes: [
+//             {
+//                 name: 'to',
+//                 img: '',
+//             },
+//             {
+//                 name: 'nho',
+//                 img: ''
+//             }
+//         ],
+//         colors: [
+//             {
+//                 name: 'trang',
+//                 img: ''
+//             }
+//         ],
+//         likes: 9,
+//         sold: 19,
+//         type: 'mo hinh', //   
+//     }
+// ]

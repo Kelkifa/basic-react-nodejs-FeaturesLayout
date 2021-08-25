@@ -1,37 +1,35 @@
-import './table.scss';
+import "./table.scss";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 Table.propTypes = {
-
+	headerList: PropTypes.array,
 };
 
 Table.defaultProps = {
- 
-}
+	headerList: [],
+};
 
 function Table(props) {
+	// PROPS
+	const {headerList, children} = props;
 
-    return (
-        <table className='component-table custom-scroll'>
-            <thead>
-                <tr>
-                    <th>stt</th>
-                    <th>name</th>
-                    <th>type</th>
-                </tr>
-            </thead>
+	// RENDER
+	return (
+		<div className="custom-scroll">
+			<table className="component-table">
+				<thead>
+					<tr>
+						{headerList.map(header => (
+							<th key={header}>{header}</th>
+						))}
+					</tr>
+				</thead>
 
-            <tbody>
-                <tr className='component-table__body'>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                </tr>
-            </tbody>
-
-        </table>
-    );
+				<tbody>{children}</tbody>
+			</table>
+		</div>
+	);
 }
 
 export default Table;

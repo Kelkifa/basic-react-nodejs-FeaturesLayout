@@ -3,6 +3,6 @@ const GameController = require('../controllers/GameController');
 const router = express.Router();
 
 router.get('/', GameController.index);
-router.post('/', GameController.storeImg);
+router.post('/', GameController.addMany);
 
 module.exports = router;
