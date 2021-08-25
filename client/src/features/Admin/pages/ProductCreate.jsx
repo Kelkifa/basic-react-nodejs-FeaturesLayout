@@ -8,6 +8,7 @@ import React, {useState} from "react";
 import InputField from "components/Form/InputField";
 import LoadNotifice from "components/Dialog/LoadNotifice";
 import PropTypes from "prop-types";
+import Select from "react-select";
 import gameApi from "api/gameApi";
 
 /** YUP SCHEMA */
@@ -18,7 +19,7 @@ const schema = yup.object().shape({
 function ProductCreate(props) {
 	const initialValues = {
 		name: "",
-		cost: 0,
+		cost: "",
 		description: "",
 		position: "",
 		type: "Tiện ích",
@@ -76,13 +77,50 @@ function ProductCreate(props) {
 								onSubmit={handleSubmit}
 								className="grid admin-create__content__form"
 							>
-								<div className="row">
+								<div className="row cg-15">
 									<FastField
 										name="name"
-										className="c-6"
-										placeholder="Name ..."
+										className="c-6 m-12"
+										placeholder="Tên sản phẩm ..."
 										label="Name"
 										component={InputField}
+									/>
+									<FastField
+										name="cost"
+										className="c-6 m-12"
+										placeholder="Giá tiền ..."
+										label="Cost"
+										component={InputField}
+									/>
+								</div>
+								<div className="row">
+									<FastField
+										name="description"
+										className="c-12"
+										placeholder="Mô tả ..."
+										label="Description"
+										inputEle="textarea"
+										component={InputField}
+									/>
+								</div>
+								<div className="row">
+									<FastField
+										name="position"
+										className="c-6"
+										placeholder="Vd: Đồng Nai"
+										label="Province"
+										component={InputField}
+									/>
+									<FastField
+										name="type"
+										className="c-6"
+										label="Type"
+										options={[
+											{value: "tiện ích", label: "Tiện ích"},
+											{value: "mô hình", label: "Mô hình"},
+										]}
+										component={InputField}
+										inputEle="select"
 									/>
 								</div>
 								<div className="row admin-create__content__form__btn">

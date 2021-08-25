@@ -21,20 +21,18 @@
 		font-size: 16px;
 		color: #232629c7;
 		line-height: 1.5;
-	}
-	&__input {
+
+		box-shadow: 1px 1px 4px rgba(99, 120, 165, 0.5);
+
 		&--error {
 			border: 1px solid rgba(245, 47, 47, 0.801);
 		}
+		&:hover {
+			border-color: #2684ff;
+		}
 	}
+
 	&__error {
 		margin-top: 5px;
 	}
-}
-
-.input-field ~ .input-field {
-	margin-top: 16px;
-}
-.input-field ~ button {
-	margin-top: 16px;
 }
