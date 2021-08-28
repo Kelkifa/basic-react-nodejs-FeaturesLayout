@@ -113,7 +113,7 @@ const product = createSlice({
         },
         [deleteProducts.rejected]: (state, action) => {
             state.admin.list.loading = false;
-            state.admin.list.error = true;
+            // state.admin.list.error = true;
         },
         [deleteProducts.fulfilled]: (state, action) => {
             state.admin.list.loading = false;
@@ -123,9 +123,14 @@ const product = createSlice({
             }
             state.admin.list.error = false;
 
-            state.admin.list.data = state.admin.list.data.filter(product => !action.payload.response.includes(product._id));;
-
-
+            state.admin.list.data = state.admin.list.data.filter(product => {
+                if (!action.payload.response.includes(product._id)) {
+                    return true;
+                }
+                // Push product to trash
+                state.admin.trash.data.push(product);
+                return false;
+            });
             return state;
         },
 
