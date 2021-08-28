@@ -15,6 +15,7 @@ Technologies
 - React router dom (reactjs)
 - Formic + yup (form control) (reactjs) + (form validation)
 - Axios (HTTP Client)
+- Jest (testing)
 
 ## Libraries
 
@@ -50,6 +51,10 @@ Cors
 Concurrently (run Reactjs and nodejs on a same terminal)
 
 `npm install concurrently--save-dev`
+
+Jet (testing)
+
+`npm install --save -dev`
 
 ## Folder Organization
 

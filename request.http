@@ -42,4 +42,15 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8080/api/products/add
+Content-Type: application/json
+
+{
+    "data":"123123"
+}
+
+### restore product
 PATCH http://localhost:8080/api/products/restore
+
+### product adminGet
+GET http://localhost:8080/api/products/adminGet

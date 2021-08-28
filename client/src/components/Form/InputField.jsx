@@ -13,7 +13,9 @@ InputField.propTypes = {
 	type: PropTypes.string,
 	inputEle: PropTypes.string,
 	className: PropTypes.string,
-	options: PropTypes.object,
+	options: PropTypes.array,
+
+	setError: PropTypes.string,
 };
 
 InputField.defaultProps = {
@@ -22,7 +24,8 @@ InputField.defaultProps = {
 	type: "text",
 	inputEle: null,
 	className: "",
-	options: {},
+	options: [],
+	setError: null,
 };
 
 const customStyles = {
@@ -57,13 +60,29 @@ const customStyles = {
 };
 
 function InputField(props) {
-	const {form, field, label, placeholder, inputEle, type, options, className} =
-		props;
+	const {
+		form,
+		field,
+		label,
+		placeholder,
+		inputEle,
+		type,
+		options,
+		className,
+		setError,
+	} = props;
 
 	const fieldError = form.errors[field.name];
 	const fieldTouched = form.touched[field.name];
 
+	const handleSelecChange = data => {
+		const changeAction = {target: {value: data.value, name: field.name}};
+
+		field.onChange(changeAction);
+	};
+
 	// RENDER
+
 	let inputField = (
 		<input
 			className={
@@ -74,7 +93,7 @@ function InputField(props) {
 			name={field.name}
 			value={field.value}
 			onChange={field.onChange}
-			onBlur={field.onBlur}
+			// onBlur={field.onBlur}
 			type={type}
 			placeholder={placeholder}
 		/>
@@ -92,19 +111,29 @@ function InputField(props) {
 				name={field.name}
 				value={field.value}
 				onChange={field.onChange}
-				onBlur={field.onBlur}
+				// onBlur={field.onBlur}
 				type={type}
 				placeholder={placeholder}
 			></textarea>
 		);
 	if (inputEle === "select") {
-		inputField = <Select styles={customStyles} options={options}></Select>;
+		inputField = (
+			<Select
+				onChange={handleSelecChange}
+				styles={customStyles}
+				options={options}
+				defaultValue={options[0]}
+			></Select>
+		);
 	}
 
 	return (
 		<div className={`${className} input-field`}>
 			<label htmlFor={field.name}>{label}</label>
 			{inputField}
+			<div className="input-field__error custom-text--dange">
+				{setError ? setError : form.errors[field.name]}
+			</div>
 		</div>
 	);
 }

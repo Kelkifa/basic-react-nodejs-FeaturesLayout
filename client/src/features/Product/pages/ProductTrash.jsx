@@ -5,20 +5,14 @@ import {
 } from "features/Product/productSlice";
 
 import AdminTable from "features/Admin/components/AdminTable";
-import PropTypes from "prop-types";
 import {numberToCost} from "assets/cores/cores";
-import productApi from "api/productApi";
 import {useSelector} from "react-redux";
 
 ProductTrash.propTypes = {};
 
 function ProductTrash(props) {
-	// const productInfo = useSelector(state => state.products);
-	const [productInfo, setProductInfo] = useState({
-		loading: true,
-		error: null,
-		data: [],
-	});
+	const productInfo = useSelector(state => state.products.admin.trash);
+
 	const productTrashHeaders = [
 		"Stt",
 		"Name",
@@ -38,25 +32,6 @@ function ProductTrash(props) {
 
 	const productIdList = productInfo.data.map(product => product._id);
 
-	useEffect(() => {
-		const fetchDeletedProduct = async () => {
-			try {
-				const response = await productApi.getDelete();
-				console.log(response);
-				if (response.success === true) {
-					setProductInfo({loading: false, error: false, data: response.data});
-					return;
-				}
-
-				setProductInfo({loading: false, error: response.message, data: []});
-				return;
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		fetchDeletedProduct();
-	}, []);
 	// id of products will been deleted
 	const handleDelete = data => {
 		return forceDeleteProducts({data});

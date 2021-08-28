@@ -66,7 +66,7 @@ function GameCreate(props) {
 								<FastField
 									className=""
 									name="imgs"
-									placeholder="Image 1 ...&#10;Image 2 ...&#10;Image 3 ..."
+									placeholder="Image 1&#10;Image 2&#10; ..."
 									label="Image"
 									component={InputField}
 									inputEle="textarea"

@@ -8,29 +8,49 @@ AdminTable.propTypes = {
 	tableHeaders: PropTypes.array,
 	header: PropTypes.object,
 	idList: PropTypes.array,
+	pageType: PropTypes.string,
+	dataInfo: PropTypes.object,
 
-	adminHandleSubmit: PropTypes.func,
+	adminHandleDelete: PropTypes.func,
 };
 AdminTable.defaultProps = {
 	tableHeaders: [],
 	header: {title: "", content: ""},
 	idList: [],
+	pageType: "list",
+	dataInfo: {loading: false, error: null},
 
-	adminHandleSubmit: null,
+	adminHandleDelete: null,
 };
 
 function AdminTable(props) {
 	const dispatch = useDispatch();
 	// PROPS
-	const {children, tableHeaders, header, idList, adminHandleSubmit} = props;
+	const {
+		children,
+		pageType,
+		tableHeaders,
+		header,
+		idList,
+		dataInfo,
+		adminHandleDelete,
+		adminHandleRestore,
+	} = props;
 
 	// HANDLE FUNCTIONS
 	const handleSubmit = async values => {
-		if (!adminHandleSubmit) return;
+		// console.log(values);
+		// return;
 		try {
 			// console.log(values.selectedInputs);
 			// console.log(adminHandleSubmit);
-			const response = await dispatch(adminHandleSubmit(values.selectedInputs));
+			if (values.submit === "restore") {
+				const response = await dispatch(
+					adminHandleRestore(values.selectedInputs)
+				);
+				return;
+			}
+			const response = await dispatch(adminHandleDelete(values.selectedInputs));
 			console.log("[RESPONSE]", response);
 		} catch (err) {
 			console.log(err);
@@ -38,6 +58,35 @@ function AdminTable(props) {
 	};
 
 	// RENDER
+	let processElement = null;
+
+	if (!children.length) {
+		processElement = (
+			<tr>
+				<td style={{textAlign: "center"}} colSpan={tableHeaders.length}>
+					Trống
+				</td>
+			</tr>
+		);
+	}
+	if (dataInfo.error) {
+		processElement = (
+			<tr>
+				<td style={{textAlign: "center"}} colSpan={tableHeaders.length}>
+					{dataInfo.error}
+				</td>
+			</tr>
+		);
+	} else if (dataInfo.loading) {
+		processElement = (
+			<tr>
+				<td style={{textAlign: "center"}} colSpan={tableHeaders.length}>
+					Loading ...
+				</td>
+			</tr>
+		);
+	}
+
 	return (
 		<div className="admin-list">
 			<div className="admin-list__notifice admin-layout-fluid">avx</div>
@@ -45,7 +94,7 @@ function AdminTable(props) {
 			<div className="admin-list__content admin-layout-fluid">
 				<Formik
 					onSubmit={handleSubmit}
-					initialValues={{selectAllInput: [], selectedInputs: []}}
+					initialValues={{selectAllInput: [], selectedInputs: [], submit: ""}}
 				>
 					{formikProps => {
 						const {
@@ -65,9 +114,28 @@ function AdminTable(props) {
 									<h2 className="admin-list__header__text">{header.title}</h2>
 									<p className="admin-list__header__info">{header.content}</p>
 									<div>
-										<button type="submit" className="custom-link">
+										<button
+											type="submit"
+											className="custom-link"
+											name="submit"
+											value="delete"
+											onClick={handleChange}
+										>
 											Xoá
 										</button>
+
+										{pageType === "trash" && (
+											<button
+												type="submit"
+												name="submit"
+												value="restore"
+												className="custom-link"
+												style={{marginLeft: "7px"}}
+												onClick={handleChange}
+											>
+												Restore
+											</button>
+										)}
 										<span> ({values.selectedInputs.length})</span>
 									</div>
 								</div>
@@ -96,7 +164,23 @@ function AdminTable(props) {
 											...tableHeaders,
 										]}
 									>
-										{children &&
+										{processElement && processElement}
+
+										{!processElement &&
+											!children({handleChange, setFieldValue}).length && (
+												<tr>
+													<td
+														colSpan={tableHeaders.length}
+														style={{textAlign: "center"}}
+													>
+														{pageType === "trash"
+															? "Thùng rác trống"
+															: "Không có dữ liệu"}
+													</td>
+												</tr>
+											)}
+										{!processElement &&
+											children &&
 											children({handleChange, setFieldValue}).map(value => {
 												const dataId = value.props.dataId;
 

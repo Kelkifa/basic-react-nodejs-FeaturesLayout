@@ -1,25 +1,14 @@
-import React, {useEffect, useState} from "react";
-import {
-	forceDeleteProducts,
-	restoreProducts,
-} from "features/Product/productSlice";
-
 import AdminTable from "features/Admin/components/AdminTable";
-import PropTypes from "prop-types";
+import React from "react";
+import {deleteProducts} from "features/Product/productSlice";
 import {numberToCost} from "assets/cores/cores";
-import productApi from "api/productApi";
 import {useSelector} from "react-redux";
 
-ProductTrash.propTypes = {};
+ProductList.propTypes = {};
 
-function ProductTrash(props) {
-	// const productInfo = useSelector(state => state.products);
-	const [productInfo, setProductInfo] = useState({
-		loading: true,
-		error: null,
-		data: [],
-	});
-	const productTrashHeaders = [
+function ProductList(props) {
+	const productInfo = useSelector(state => state.products.admin.list);
+	const productTableHeaders = [
 		"Stt",
 		"Name",
 		"Type",
@@ -38,44 +27,18 @@ function ProductTrash(props) {
 
 	const productIdList = productInfo.data.map(product => product._id);
 
-	useEffect(() => {
-		const fetchDeletedProduct = async () => {
-			try {
-				const response = await productApi.getDelete();
-				console.log(response);
-				if (response.success === true) {
-					setProductInfo({loading: false, error: false, data: response.data});
-					return;
-				}
-
-				setProductInfo({loading: false, error: response.message, data: []});
-				return;
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		fetchDeletedProduct();
-	}, []);
 	// id of products will been deleted
 	const handleDelete = data => {
-		return forceDeleteProducts({data});
-	};
-	const handleRestore = data => {
-		return restoreProducts({data});
+		return deleteProducts({data});
 	};
 	// RENDER
 	return (
 		<AdminTable
-			header={{
-				title: "Product trash",
-				content: "Danh sách các sản phẩm đã bị xoá",
-			}}
+			header={{title: "Product list", content: "Danh sách các sản phẩm"}}
 			idList={productIdList}
-			tableHeaders={productTrashHeaders}
+			tableHeaders={productTableHeaders}
 			adminHandleDelete={handleDelete}
-			adminHandleRestore={handleRestore}
-			pageType="trash"
+			dataInfo={{loading: productInfo.loading, error: productInfo.error}}
 		>
 			{adminTableProps => {
 				const {handleChange, setFieldValue} = adminTableProps;
@@ -107,7 +70,7 @@ function ProductTrash(props) {
 						<td>{product.updatedAt}</td>
 						<td>
 							<div className="custom-link">Update</div>
-							<div className="custom-link">Delete</div>
+							<div className="custom-link"> Delete</div>
 						</td>
 					</tr>
 				));
@@ -116,4 +79,4 @@ function ProductTrash(props) {
 	);
 }
 
-export default ProductTrash;
+export default ProductList;

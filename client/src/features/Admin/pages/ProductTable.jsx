@@ -8,7 +8,8 @@ import {useSelector} from "react-redux";
 ProductTable.propTypes = {};
 
 function ProductTable(props) {
-	const productInfo = useSelector(state => state.products);
+	const productInfo = useSelector(state => state.products.user);
+	console.log(productInfo);
 	const productTableHeaders = [
 		"Stt",
 		"Name",
@@ -29,7 +30,7 @@ function ProductTable(props) {
 	const productIdList = productInfo.data.map(product => product._id);
 
 	// id of products will been deleted
-	const handleSubmit = data => {
+	const handleDelete = data => {
 		return deleteProducts({data});
 	};
 	// RENDER
@@ -38,7 +39,7 @@ function ProductTable(props) {
 			header={{title: "Product list", content: "Danh sách các sản phẩm"}}
 			idList={productIdList}
 			tableHeaders={productTableHeaders}
-			adminHandleSubmit={handleSubmit}
+			adminHandleDelete={handleDelete}
 		>
 			{adminTableProps => {
 				const {handleChange, setFieldValue} = adminTableProps;
@@ -70,7 +71,7 @@ function ProductTable(props) {
 						<td>{product.updatedAt}</td>
 						<td>
 							<div className="custom-link">Update</div>
-							<div className="custom-link">Delete</div>
+							<div className="custom-link"> Delete</div>
 						</td>
 					</tr>
 				));
