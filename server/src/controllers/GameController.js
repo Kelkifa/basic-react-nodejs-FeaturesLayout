@@ -1,9 +1,5 @@
 const gameModel = require('../models/games');
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 class GameControlelr {
     /**[GET] /api/games
      * response all game imgs
@@ -47,9 +43,8 @@ class GameControlelr {
 
         try {
             const newImgs = data.map(value => { return { img: value } });
-            await gameModel.create(newImgs);
-            await sleep(1000);
-            return res.json({ success: true, message: 'successfully' });
+            const newGame = await gameModel.create(newImgs);
+            return res.json({ success: true, message: 'successfully', response: newGame });
 
         } catch (err) {
             console.log(err);

@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {Redirect, Route, Switch, useRouteMatch} from "react-router-dom";
 
+import GameCreate from "./GameCreate";
 import GameList from "./GameList";
 import NotFound from "components/NotFound";
 import {adminGet} from "../gameSlice";
@@ -25,7 +26,8 @@ function GameAdmin(props) {
 	return (
 		<Switch>
 			<Route path={`${match.url}/table`} component={GameList} />
-			<Route path={match.url}>
+			<Route path={`${match.url}/create`} component={GameCreate} />
+			<Route exac path={match.url}>
 				<Redirect to={`${match.url}/table`} />
 			</Route>
 			<Route component={NotFound}></Route>

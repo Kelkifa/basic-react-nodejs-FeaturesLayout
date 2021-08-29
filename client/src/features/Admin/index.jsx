@@ -3,7 +3,6 @@ import {Redirect, Route, Switch, useRouteMatch} from "react-router-dom";
 import AdminProduct from "features/Product/pages/AdminProduct";
 import DataBoard from "./pages/DataBoard";
 import GameAdmin from "features/Game/pages/GameAdmin";
-import GameCreate from "./pages/GameCreate";
 import NotFound from "components/NotFound";
 import React from "react";
 

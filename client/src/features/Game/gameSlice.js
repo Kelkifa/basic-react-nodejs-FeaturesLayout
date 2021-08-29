@@ -13,6 +13,10 @@ export const adminGet = createAsyncThunk('gameSlice/adminGet', async () => {
     const response = await gameApi.adminGetAll();
     return response;
 });
+export const gameCreate = createAsyncThunk('gameSlice/gameCreate', async (data) => {
+    const response = await gameApi.addMany(data);
+    return response;
+})
 export const gameAdminDelete = createAsyncThunk('gameSlice/adminDelete', async (data) => {
     const response = await gameApi.delete(data);
     return response;
@@ -21,10 +25,10 @@ export const gameAdminDelete = createAsyncThunk('gameSlice/adminDelete', async (
 const game = createSlice({
     name: 'games',
     initialState: {
-        user: { loading: true, error: null, process: null, data: [] },
+        user: { loading: true, error: null, process: { type: null, message: null }, data: [] },
         admin: {
-            list: { loading: true, error: null, process: null, data: [] },
-            trash: { loading: true, error: null, process: null, data: [] }
+            list: { loading: true, error: null, process: { type: null, message: null }, data: [] },
+            trash: { loading: true, error: null, process: { type: null, message: null }, data: [] }
         },
     },
     reducer: {},
@@ -86,20 +90,33 @@ const game = createSlice({
             return state;
         },
 
+        /** Game create
+         *  private
+         */
+        [gameCreate.fulfilled]: (state, action) => {
+            if (!action.payload.success) {
+                return state;
+            }
+            state.admin.list.data.push(action.payload.response);
+            return state;
+        },
+        /** Game delete
+         *  private
+         */
         [gameAdminDelete.pending]: (state, action) => {
-            state.admin.list.process = 'processing';
+            state.admin.list.process = { type: 'processing', message: 'Processing ...' }
         },
         [gameAdminDelete.rejected]: (state, action) => {
-            state.admin.list.process = 'error';
+            state.admin.list.process = { type: 'error', message: 'Client error' };
         },
         [gameAdminDelete.fulfilled]: (state, action) => {
 
             if (!action.payload.success) {
-                state.admin.list.process = action.payload.message;
+                state.admin.list.process = { type: 'error', message: action.payload.message };
                 return state;
             }
 
-            state.admin.list.process = 'successfully';
+            state.admin.list.process = { type: 'success', message: action.payload.message };
             state.admin.list.data = state.admin.list.data.filter(game => !action.payload.response.includes(game._id));
             state.user.data = state.user.data.filter(game => !action.payload.response.includes(game._id));
 

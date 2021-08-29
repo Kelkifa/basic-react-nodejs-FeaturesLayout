@@ -45,11 +45,13 @@ const product = createSlice({
                 loading: true,
                 error: null,
                 data: [],
+                process: { type: null, message: null },
             },
             trash: {
                 loading: true,
                 error: null,
                 data: [],
+                process: { type: null, message: null },
             }
         }
     },
@@ -114,20 +116,17 @@ const product = createSlice({
          *  Private
          */
         [adminAddProduct.pending]: (state, action) => {
-            // state.admin.list.loading = true;
+            state.admin.list.process = { type: 'processing', message: 'Processing ...' };
         },
         [adminAddProduct.rejected]: (state, action) => {
-            // state.admin.list.loading = false;
-            // state.admin.list.error = true;
+            state.admin.list.process = { type: 'rejected', message: 'Client error' };
         },
         [adminAddProduct.fulfilled]: (state, action) => {
-            // state.admin.list.loading = false;
             if (!action.payload.success) {
-                // state.admin.list.error = action.payload.message;
+                state.admin.list.process = { type: 'error', message: action.payload.message };
                 return state;
             }
-            // state.admin.list.error = false;
-
+            state.admin.list.process = { type: 'fulfilled', message: action.payload.message };
             state.admin.list.data.push(action.payload.response);
 
             return state;
@@ -137,19 +136,17 @@ const product = createSlice({
          *  Private
          */
         [deleteProducts.pending]: (state, action) => {
-            state.admin.list.loading = true;
+            state.admin.list.process = { type: 'processing', message: 'Processing ...' };
         },
         [deleteProducts.rejected]: (state, action) => {
-            state.admin.list.loading = false;
-            // state.admin.list.error = true;
+            state.admin.list.process = { type: 'rejected', message: 'Client error' };
         },
         [deleteProducts.fulfilled]: (state, action) => {
-            state.admin.list.loading = false;
             if (!action.payload.success) {
-                state.admin.list.error = action.payload.message;
+                state.admin.list.process = { type: 'error', message: action.payload.message };
                 return state;
             }
-            state.admin.list.error = false;
+            state.admin.list.prcess = { type: 'fulfilled', message: action.payload.message };
 
             state.admin.list.data = state.admin.list.data.filter(product => {
                 if (!action.payload.response.includes(product._id)) {
@@ -170,20 +167,19 @@ const product = createSlice({
          *  Private
          */
         [forceDeleteProducts.pending]: (state, action) => {
-            state.admin.trash.loading = true;
+            state.admin.trash.process = { type: 'processing', message: 'Processing ...' };
         },
         [forceDeleteProducts.rejected]: (state, action) => {
-            state.admin.trash.loading = false;
-            state.admin.trash.error = true;
+            state.admin.trash.process = { type: 'rejected', message: 'Client error' };
         },
         [forceDeleteProducts.fulfilled]: (state, action) => {
-            state.admin.trash.loading = false;
             if (!action.payload.success) {
-                state.admin.trash.error = action.payload.message;
+                state.admin.trash.prcess = { type: 'error', message: action.payload.message };
                 return state;
             }
-            state.admin.trash.error = false;
             state.admin.trash.data = state.admin.trash.data.filter(product => !action.payload.response.includes(product._id));
+
+            state.admin.trash.prcess = { type: 'fulfilled', message: action.payload.message };
 
             return state;
         },
@@ -193,32 +189,25 @@ const product = createSlice({
          *  Private
          */
         [restoreProducts.pending]: (state, action) => {
-            state.admin.trash.loading = true;
-
-            state.admin.list.loading = true;
+            state.admin.trash.process = { type: 'processing', message: 'Processing ...' };
         },
         [restoreProducts.rejected]: (state, action) => {
-            state.admin.trash.loading = false;
-            state.admin.trash.error = true;
+            state.admin.trash.process = { type: 'rejected', message: 'Client error' }
 
             state.admin.list.loading = false;
         },
         [restoreProducts.fulfilled]: (state, action) => {
-            state.admin.trash.loading = false;
-
-            state.admin.list.loading = false;
             if (!action.payload.success) {
-                state.admin.trash.error = action.payload.message;
+                state.admin.trash.process = { type: 'error', message: action.payload.message }
                 return state;
             }
-            state.admin.trash.error = false;
 
             const restoredIds = action.payload.response.map(value => value._id);
 
             state.admin.trash.data = state.admin.trash.data.filter(product => !restoredIds.includes(product._id));
 
             state.admin.list.data = state.admin.list.data.concat(action.payload.response);
-
+            state.admin.trash.process = { type: 'fulfilled', message: action.payload.message };
             return state;
         },
     }

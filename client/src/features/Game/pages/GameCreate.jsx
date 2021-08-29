@@ -1,4 +1,4 @@
-import "../components/adminCreate.scss";
+import "features/Admin/components/adminCreate.scss";
 
 import * as yup from "yup";
 
@@ -7,14 +7,16 @@ import React, {useState} from "react";
 
 import InputField from "components/Form/InputField";
 import LoadNotifice from "components/Dialog/LoadNotifice";
-import PropTypes from "prop-types";
 import gameApi from "api/gameApi";
+import {gameCreate} from "../gameSlice";
+import {useDispatch} from "react-redux";
 
 const schema = yup.object().shape({
 	imgs: yup.string().required("This field is required"),
 });
 
 function GameCreate(props) {
+	const dispatch = useDispatch();
 	const [dialog, setDialog] = useState({loading: false, error: null});
 
 	// HANDLE FUNCTIONS
@@ -25,7 +27,7 @@ function GameCreate(props) {
 
 		const data = values.imgs.split("\n");
 		try {
-			const response = await gameApi.addMany({data});
+			const response = await dispatch(gameCreate({data}));
 			console.log(response);
 		} catch (error) {
 			console.log(error);
