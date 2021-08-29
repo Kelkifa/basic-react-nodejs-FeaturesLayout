@@ -52,41 +52,37 @@ function ProductTrash(props) {
 			adminHandleRestore={handleRestore}
 			pageType="trash"
 		>
-			{adminTableProps => {
-				const {handleChange, setFieldValue} = adminTableProps;
-
-				return productInfo.data.map((product, index) => (
-					<tr dataId={product._id} key={product._id}>
-						<td> {index + 1} </td>
-						<td> {product.name} </td>
-						<td> {product.type} </td>
-						<td className="cost-style">{numberToCost(product.cost)}</td>
-						<td> {product.description}</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>
-							{product.shapes.map((shape, index) => {
-								if (index === product.shapeslenght + 1) return shape.name;
-								return shape.name + ", ";
-							})}
-						</td>
-						<td>
-							{product.colors.map((color, index) => {
-								if (index === product.colorslenght + 1) return color.name;
-								return color.name + ", ";
-							})}
-						</td>
-						<td>{product.position}</td>
-						<td>{product.createdAt}</td>
-						<td>{product.updatedAt}</td>
-						<td>
-							<div className="custom-link">Update</div>
-							<div className="custom-link">Delete</div>
-						</td>
-					</tr>
-				));
-			}}
+			{productInfo.data.map((product, index) => (
+				<tr dataId={product._id} key={product._id}>
+					<td> {index + 1} </td>
+					<td> {product.name} </td>
+					<td> {product.type} </td>
+					<td className="cost-style">{numberToCost(product.cost)}</td>
+					<td> {product.description}</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>
+						{product.shapes.map((shape, index) => {
+							if (index === product.shapeslenght + 1) return shape.name;
+							return shape.name + ", ";
+						})}
+					</td>
+					<td>
+						{product.colors.map((color, index) => {
+							if (index === product.colorslenght + 1) return color.name;
+							return color.name + ", ";
+						})}
+					</td>
+					<td>{product.position}</td>
+					<td>{product.createdAt}</td>
+					<td>{product.updatedAt}</td>
+					<td>
+						<div className="custom-link">Update</div>
+						<div className="custom-link">Delete</div>
+					</td>
+				</tr>
+			))}
 		</AdminTable>
 	);
 }

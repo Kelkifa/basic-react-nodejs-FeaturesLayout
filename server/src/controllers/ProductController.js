@@ -45,7 +45,7 @@ class ProductController {
      */
     async delete(req, res) {
         const { data } = req.body;
-        console.log(data);
+
         if (!data.length)
             return res.status(400).json({ success: false, message: 'bad request' });
         try {

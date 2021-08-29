@@ -1,4 +1,5 @@
 import cartReducer from "../features/Cart/cartSlice";
+import gameReducer from "features/Game/gameSlice";
 import productReducer from "features/Product/productSlice";
 import userReducer from "./userSlice";
 
@@ -8,6 +9,7 @@ const rootReducer = {
     carts: cartReducer,
     user: userReducer,
     products: productReducer,
+    games: gameReducer,
 }
 
 const store = configureStore({

@@ -19,6 +19,7 @@ import MainLayout from 'components/Layouts/Main/MainLayout';
 import NotFound from 'components/NotFound';
 import Test from 'components/Test';
 import firebase from 'firebase';
+import { gameUserGet } from 'features/Game/gameSlice';
 import { getAll } from 'features/Product/productSlice';
 import { getCarts } from 'features/Cart/cartSlice';
 import { getMe } from 'app/userSlice';
@@ -46,7 +47,11 @@ function App(props) {
 
     useEffect(() => {
         const unregisterAuthObserver = firebase.auth().onAuthStateChanged(async user => {
-            await dispatch(getAll());
+            await Promise.all([
+                dispatch(getAll()),
+                dispatch(gameUserGet())
+            ]);
+
             if (!user) {
                 console.log('User is not logged in');
                 return

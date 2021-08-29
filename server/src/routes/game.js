@@ -2,6 +2,8 @@ const express = require('express');
 const GameController = require('../controllers/GameController');
 const router = express.Router();
 
+router.delete('/delete', GameController.delete);
+router.get('/adminGet', GameController.adminGet);
 router.get('/', GameController.index);
 router.post('/', GameController.addMany);
 

@@ -29,7 +29,7 @@ function AdminTable(props) {
 	const dispatch = useDispatch();
 	// PROPS
 	const {
-		children,
+		children = [],
 		pageType,
 		tableHeaders,
 		header,
@@ -65,8 +65,8 @@ function AdminTable(props) {
 	if (!children.length) {
 		processElement = (
 			<tr>
-				<td style={{textAlign: "center"}} colSpan={tableHeaders.length + 1}>
-					Trống
+				<td colSpan={tableHeaders.length + 1} style={{textAlign: "center"}}>
+					{pageType === "trash" ? "Thùng rác trống" : "Không có dữ liệu"}
 				</td>
 			</tr>
 		);
@@ -169,21 +169,8 @@ function AdminTable(props) {
 										{processElement && processElement}
 
 										{!processElement &&
-											!children({handleChange, setFieldValue}).length && (
-												<tr>
-													<td
-														colSpan={tableHeaders.length + 1}
-														style={{textAlign: "center"}}
-													>
-														{pageType === "trash"
-															? "Thùng rác trống"
-															: "Không có dữ liệu"}
-													</td>
-												</tr>
-											)}
-										{!processElement &&
-											children &&
-											children({handleChange, setFieldValue}).map(value => {
+											children.length &&
+											children.map(value => {
 												const dataId = value.props.dataId;
 
 												return (
