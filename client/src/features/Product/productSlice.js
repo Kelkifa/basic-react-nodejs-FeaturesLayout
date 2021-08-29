@@ -15,6 +15,10 @@ export const adminGetAll = createAsyncThunk('product/adminGetAll', async () => {
     const response = await productApi.adminGetAll();
     return response;
 });
+export const adminAddProduct = createAsyncThunk('product/adminAddProduct', async (data) => {
+    const response = await productApi.add(data);
+    return response;
+})
 export const deleteProducts = createAsyncThunk('product/deleteProducts', async (data) => {
     const response = await productApi.delete(data);
     return response;
@@ -105,6 +109,30 @@ const product = createSlice({
 
             return state;
         },
+
+        /** Add new product
+         *  Private
+         */
+        [adminAddProduct.pending]: (state, action) => {
+            // state.admin.list.loading = true;
+        },
+        [adminAddProduct.rejected]: (state, action) => {
+            // state.admin.list.loading = false;
+            // state.admin.list.error = true;
+        },
+        [adminAddProduct.fulfilled]: (state, action) => {
+            // state.admin.list.loading = false;
+            if (!action.payload.success) {
+                // state.admin.list.error = action.payload.message;
+                return state;
+            }
+            // state.admin.list.error = false;
+
+            state.admin.list.data.push(action.payload.response);
+
+            return state;
+        },
+
         /** DELETE
          *  Private
          */
@@ -129,8 +157,12 @@ const product = createSlice({
                 }
                 // Push product to trash
                 state.admin.trash.data.push(product);
+
                 return false;
             });
+
+            state.user.data = state.user.data.filter(product => !action.payload.response.includes(product._id));
+
             return state;
         },
 

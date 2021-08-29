@@ -11,6 +11,7 @@ AdminTable.propTypes = {
 	pageType: PropTypes.string,
 	dataInfo: PropTypes.object,
 
+	adminHandleRestore: PropTypes.func,
 	adminHandleDelete: PropTypes.func,
 };
 AdminTable.defaultProps = {
@@ -20,6 +21,7 @@ AdminTable.defaultProps = {
 	pageType: "list",
 	dataInfo: {loading: false, error: null},
 
+	adminHandleRestore: null,
 	adminHandleDelete: null,
 };
 
@@ -39,17 +41,17 @@ function AdminTable(props) {
 
 	// HANDLE FUNCTIONS
 	const handleSubmit = async values => {
-		// console.log(values);
 		// return;
+
 		try {
-			// console.log(values.selectedInputs);
-			// console.log(adminHandleSubmit);
-			if (values.submit === "restore") {
+			if (values.submit === "restore" && adminHandleRestore) {
 				const response = await dispatch(
 					adminHandleRestore(values.selectedInputs)
 				);
 				return;
 			}
+			if (!adminHandleDelete) return;
+			console.log(values);
 			const response = await dispatch(adminHandleDelete(values.selectedInputs));
 			console.log("[RESPONSE]", response);
 		} catch (err) {
@@ -63,7 +65,7 @@ function AdminTable(props) {
 	if (!children.length) {
 		processElement = (
 			<tr>
-				<td style={{textAlign: "center"}} colSpan={tableHeaders.length}>
+				<td style={{textAlign: "center"}} colSpan={tableHeaders.length + 1}>
 					Trống
 				</td>
 			</tr>
@@ -72,7 +74,7 @@ function AdminTable(props) {
 	if (dataInfo.error) {
 		processElement = (
 			<tr>
-				<td style={{textAlign: "center"}} colSpan={tableHeaders.length}>
+				<td style={{textAlign: "center"}} colSpan={tableHeaders.length + 1}>
 					{dataInfo.error}
 				</td>
 			</tr>
@@ -80,7 +82,7 @@ function AdminTable(props) {
 	} else if (dataInfo.loading) {
 		processElement = (
 			<tr>
-				<td style={{textAlign: "center"}} colSpan={tableHeaders.length}>
+				<td style={{textAlign: "center"}} colSpan={tableHeaders.length + 1}>
 					Loading ...
 				</td>
 			</tr>
@@ -170,7 +172,7 @@ function AdminTable(props) {
 											!children({handleChange, setFieldValue}).length && (
 												<tr>
 													<td
-														colSpan={tableHeaders.length}
+														colSpan={tableHeaders.length + 1}
 														style={{textAlign: "center"}}
 													>
 														{pageType === "trash"

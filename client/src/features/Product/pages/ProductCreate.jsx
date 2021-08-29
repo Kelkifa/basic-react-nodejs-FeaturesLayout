@@ -1,4 +1,4 @@
-import "../components/adminCreate.scss";
+import "features/Admin/components/adminCreate.scss";
 
 import * as yup from "yup";
 
@@ -7,12 +7,11 @@ import React, {useState} from "react";
 
 import InputField from "components/Form/InputField";
 import LoadNotifice from "components/Dialog/LoadNotifice";
-import PropTypes from "prop-types";
-import Select from "react-select";
-import ShowImagesField from "../components/ShowImagesField";
-import gameApi from "api/gameApi";
+import ShowImagesField from "features/Admin/components/ShowImagesField";
+import {adminAddProduct} from "../productSlice";
 import productApi from "api/productApi";
 import {textareaDataToArray} from "assets/cores/cores";
+import {useDispatch} from "react-redux";
 
 /** YUP SCHEMA */
 const schema = yup.object().shape({
@@ -41,6 +40,9 @@ function ProductCreate(props) {
 		shapeLinks: "",
 		colorLinks: "",
 	};
+
+	const dispatch = useDispatch();
+
 	const [dialog, setDialog] = useState({loading: false, error: null});
 
 	const [shapeError, setShapeError] = useState(null);
@@ -70,7 +72,7 @@ function ProductCreate(props) {
 		newDialog.loading = true;
 		setDialog(newDialog);
 		try {
-			const response = await productApi.add({data: values});
+			const response = await dispatch(adminAddProduct({data: values}));
 			console.log(response);
 		} catch (error) {
 			console.log(error.message);
@@ -186,6 +188,7 @@ function ProductCreate(props) {
 										placeholder="Tên màu sắc 1&#10;Tên màu sắc 2&#10;Tên màu sắc 3..."
 										inputEle="textarea"
 										component={InputField}
+										setError={colorError}
 									/>
 								</div>
 								<div className="row cg-15">
@@ -196,6 +199,7 @@ function ProductCreate(props) {
 										placeholder="Đường dẫn đến ảnh 1&#10;Đường dẫn đến ảnh 2&#10;Đường dẫn đến ảnh 3..."
 										inputEle="textarea"
 										component={InputField}
+										setError={shapeError}
 									/>
 									<FastField
 										name="colorLinks"
@@ -204,6 +208,7 @@ function ProductCreate(props) {
 										placeholder="Đường dẫn đến ảnh 1&#10;Đường dẫn đến ảnh 2&#10;Đường dẫn đến ảnh 3..."
 										inputEle="textarea"
 										component={InputField}
+										setError={colorError}
 									/>
 								</div>
 								<div className="row cg-15">

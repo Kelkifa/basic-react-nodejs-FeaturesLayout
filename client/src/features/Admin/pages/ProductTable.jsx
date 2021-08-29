@@ -1,13 +1,20 @@
 import AdminTable from "features/Admin/components/AdminTable";
+import {HeaderContext} from "components/Layouts/Admin/AdminLayout";
 import PropTypes from "prop-types";
 import React from "react";
 import {deleteProducts} from "features/Product/productSlice";
 import {numberToCost} from "assets/cores/cores";
+import {useContext} from "react";
+import {useRouteMatch} from "react-router-dom";
 import {useSelector} from "react-redux";
 
 ProductTable.propTypes = {};
 
 function ProductTable(props) {
+	const {handleHeaderChange} = useContext(HeaderContext);
+	// const match =
+	handleHeaderChange(useRouteMatch().url);
+
 	const productInfo = useSelector(state => state.products.user);
 	console.log(productInfo);
 	const productTableHeaders = [

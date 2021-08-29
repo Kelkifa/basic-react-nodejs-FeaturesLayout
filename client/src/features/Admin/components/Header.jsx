@@ -1,7 +1,7 @@
 import "./header.scss";
 
 import {AiOutlineMenu, AiOutlineOrderedList} from "react-icons/ai";
-import {Link, useRouteMatch} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 import {FiMail} from "react-icons/fi";
 import {IoMdNotificationsOutline} from "react-icons/io";
@@ -14,8 +14,8 @@ const getLinkTo = (url, value) => {
 };
 
 function Header(props) {
-	const match = useRouteMatch();
-	const url = match.url;
+	const location = useLocation();
+	const url = location.pathname;
 	const urlArr = url.split("/");
 	urlArr.shift();
 

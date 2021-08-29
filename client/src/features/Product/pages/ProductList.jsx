@@ -1,5 +1,6 @@
+import React, {useContext, useEffect} from "react";
+
 import AdminTable from "features/Admin/components/AdminTable";
-import React from "react";
 import {deleteProducts} from "features/Product/productSlice";
 import {numberToCost} from "assets/cores/cores";
 import {useSelector} from "react-redux";
@@ -8,6 +9,7 @@ ProductList.propTypes = {};
 
 function ProductList(props) {
 	const productInfo = useSelector(state => state.products.admin.list);
+
 	const productTableHeaders = [
 		"Stt",
 		"Name",

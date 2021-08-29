@@ -15,7 +15,7 @@ function Detail(props) {
 	console.log({idParam});
 
 	const productInfo = useSelector(state => {
-		const productInfo = state.products;
+		const productInfo = state.products.user;
 		console.log(productInfo);
 		return {
 			loading: productInfo.loading,

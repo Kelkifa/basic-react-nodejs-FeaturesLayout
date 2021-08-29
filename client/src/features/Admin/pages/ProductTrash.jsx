@@ -62,6 +62,7 @@ function ProductTrash(props) {
 		return forceDeleteProducts({data});
 	};
 	const handleRestore = data => {
+		console.log(data);
 		return restoreProducts({data});
 	};
 	// RENDER

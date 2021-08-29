@@ -62,8 +62,8 @@ class ProductController {
      * private
     */
     async forceDelete(req, res) {
-        const { data } = req.body;
-        if (!data.length) return res.status(400).json({ success: false, message: 'bad request' });
+        const data = req.body;
+        if (!data) return res.status(400).json({ success: false, message: 'bad request' });
         try {
             await productModel.deleteMany({ _id: { $in: data } });
             return res.json({ success: true, message: 'successfully', response: data });
@@ -99,17 +99,24 @@ class ProductController {
      */
     async add(req, res) {
         const { data } = req.body;
-        console.log(data);
+
 
 
         if (!data) return res.status(400).json({ success: false, message: 'bad request' });
 
+        const shapeNames = textareaDataToArray(data.shapeNames);
+        const shapeLinks = textareaDataToArray(data.shapeLinks);
+
+        const colorNames = textareaDataToArray(data.colorNames);
+        const colorLinks = textareaDataToArray(data.colorLinks);
+
+        if (shapeNames.length !== shapeLinks.length || colorNames.length !== colorLinks.length)
+            return res.status(400).json({ success: false, message: 'bad request' });
+
         try {
-            // Process data
-            const shapes = { name: textareaDataToArray(data.shapeNames), img: textareaDataToArray(data.shapeLinks) };
-            const colors = { name: textareaDataToArray(data.colorNames), img: textareaDataToArray(data.colorLinks) };
-            if (shapes.name.length !== shapes.img.length || colors.name.length !== colors.img.length)
-                return res.status(400).json({ success: false, message: 'bad request' });
+
+            const shapes = shapeNames.map((shapeName, index) => ({ name: shapeName, img: shapeLinks[index] }));
+            const colors = colorNames.map((colorName, index) => ({ name: colorName, img: colorLinks[index] }));
 
             const newData = {
                 name: data.name,
@@ -122,28 +129,11 @@ class ProductController {
                 colors
             }
             const newProduct = new productModel(newData);
-            await newProduct.save();
+            const storedProduct = await newProduct.save();
 
-            return res.json({ success: true, message: 'successfully' });
+            return res.json({ success: true, message: 'successfully', response: storedProduct });
         } catch (err) {
             console.log(err)
-            return res.status(500).json({ success: false, message: 'internal server' });
-        }
-    }
-    /**[PATCH] /api/products/sortDelete 
-     * Sort delete product
-     * private
-    */
-    async sortDelete(req, res) {
-        const { data } = req.body;
-        console.log(data);
-        if (!data) return res.status(400).json({ success: false, message: 'bad request' });
-        try {
-
-
-            return res.json({ success: true, message: 'successfully' })
-        } catch (err) {
-            console.log(err);
             return res.status(500).json({ success: false, message: 'internal server' });
         }
     }

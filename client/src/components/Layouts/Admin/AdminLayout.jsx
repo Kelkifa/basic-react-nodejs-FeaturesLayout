@@ -5,17 +5,23 @@ import React, {useState} from "react";
 import Header from "features/Admin/components/Header";
 import Leftbar from "features/Admin/components/Leftbar";
 
+export const HeaderContext = React.createContext("/");
+
 function AdminLayout(props) {
 	const {children} = props;
 
 	// STATES
 	const [isShowLeftbar, setIsShowLeftbar] = useState(true);
 
-	// HANDLE FUNCTIONS
+	const [currUrl, setCurrUrl] = useState("/");
 
+	// HANDLE FUNCTIONS
 	// Show/hide leftbar
 	const handleShowHideLeftbar = () => {
 		setIsShowLeftbar(!isShowLeftbar);
+	};
+	const handleHeaderChange = value => {
+		setCurrUrl(value);
 	};
 
 	return (
