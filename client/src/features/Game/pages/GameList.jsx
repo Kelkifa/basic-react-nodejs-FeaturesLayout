@@ -39,7 +39,11 @@ function GameList(props) {
 					<td>{game._id}</td>
 					<td>
 						<div className="game-list__img">
-							<img src={game.img} alt="fail" />
+							{game.type === "image" ? (
+								<img src={game.data} alt="fail" />
+							) : (
+								game.data
+							)}
 						</div>
 					</td>
 					<td>{game.img}</td>
