@@ -1,53 +1,39 @@
-import "features/Admin/components/adminCreate.scss";
-
 import * as yup from "yup";
 
 import {FastField, Formik} from "formik";
 import React, {useState} from "react";
+import {adminAddProduct, updateProduct} from "../productSlice";
+import {useDispatch, useSelector} from "react-redux";
 
 import InputField from "components/Form/InputField";
 import LoadNotifice from "components/Dialog/LoadNotifice";
 import ShowImagesField from "features/Admin/components/ShowImagesField";
-import {adminAddProduct} from "../productSlice";
+import {schema} from "./ProductCreate";
 import {textareaDataToArray} from "assets/cores/cores";
-import {useDispatch} from "react-redux";
+import {useParams} from "react-router-dom";
 
-/** YUP SCHEMA */
-export const schema = yup.object().shape({
-	img: yup.string().nullable(),
-	name: yup.string(),
-	cost: yup.number().required("This field is required").nullable(),
-	description: yup.string(),
-	position: yup.string(),
-	type: yup.string().oneOf(["tiện ích", "mô hình"]),
-	shapeNames: yup.string().nullable(),
-	colorNames: yup.string().nullable(),
-	shapeLinks: yup.string().nullable(),
-	colorLinks: yup.string().nullable(),
-});
-
-function ProductCreate(props) {
-	const initialValues = {
-		img: "",
-		name: "",
-		cost: "",
-		description: "",
-		position: "",
-		type: "tiện ích",
-		shapeNames: "",
-		colorNames: "",
-		shapeLinks: "",
-		colorLinks: "",
-	};
+function ProductUpdate(props) {
+	const {id} = useParams();
+	const productInfo = useSelector(state => {
+		const product = state.products.admin.list.data.find(
+			value => value._id === id
+		);
+		return {
+			data: product,
+			loading: state.products.admin.list.loading,
+			error: state.products.admin.list.error,
+		};
+	});
 
 	const dispatch = useDispatch();
-
+	// HANDLE FUNCTIONS
 	const [dialog, setDialog] = useState({loading: false, error: null});
 
 	const [shapeError, setShapeError] = useState(null);
 	const [colorError, setColorError] = useState(null);
 	// HANDLE FUNCTIONS
 	const handleSubmit = async values => {
+		// Check shape/color name size and shape/color link size
 		if (
 			textareaDataToArray(values.shapeNames).length !==
 			textareaDataToArray(values.shapeLinks).length
@@ -71,7 +57,7 @@ function ProductCreate(props) {
 		newDialog.loading = true;
 		setDialog(newDialog);
 		try {
-			const response = await dispatch(adminAddProduct({data: values}));
+			const response = await dispatch(updateProduct({data: values, id}));
 			console.log(response);
 		} catch (error) {
 			console.log(error.message);
@@ -80,9 +66,48 @@ function ProductCreate(props) {
 		newDialog = {...dialog};
 		setDialog(newDialog);
 	};
+	// RENDER
 
+	if (productInfo.loading)
+		return <div className="admin-layout-fluid">Loading ...</div>;
+	if (productInfo.error)
+		return <div className="admin-layout-fluid">{productInfo.error}</div>;
+
+	const shapes = productInfo.data.shapes.reduce(
+		(total, value, index) => {
+			if (index !== 0) {
+				return [total[0] + "\n" + value.name, total[1] + "\n" + value.img];
+			}
+
+			return [total[0] + value.name, total[1] + value.img];
+		},
+		["", ""]
+	);
+	const colors = productInfo.data.colors.reduce(
+		(total, value, index) => {
+			if (index !== 0) {
+				return [total[0] + "\n" + value.name, total[1] + "\n" + value.img];
+			}
+
+			return [total[0] + value.name, total[1] + value.img];
+		},
+		["", ""]
+	);
+
+	const initialValues = {
+		img: "",
+		name: productInfo.data.name,
+		cost: productInfo.data.cost,
+		description: productInfo.data.description,
+		position: productInfo.data.position,
+		type: productInfo.data.type,
+		shapeNames: shapes[0],
+		colorNames: colors[0],
+		shapeLinks: shapes[1],
+		colorLinks: colors[1],
+	};
 	return (
-		<div className="admin-create">
+		<div className="admin-update">
 			<div className="admin-layout-fluid admin-create__notifice">loi roi</div>
 			<div className="admin-layout-fluid admin-create__content">
 				<h3 className="admin-create__content__header">Create Product</h3>
@@ -240,4 +265,4 @@ function ProductCreate(props) {
 	);
 }
 
-export default ProductCreate;
+export default ProductUpdate;

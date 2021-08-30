@@ -19,7 +19,7 @@ import MainLayout from 'components/Layouts/Main/MainLayout';
 import NotFound from 'components/NotFound';
 import Test from 'components/Test';
 import firebase from 'firebase';
-import { gameUserGet } from 'features/Game/gameSlice';
+import { gameGet } from 'features/Game/gameSlice';
 import { getAll } from 'features/Product/productSlice';
 import { getCarts } from 'features/Cart/cartSlice';
 import { getMe } from 'app/userSlice';
@@ -49,7 +49,7 @@ function App(props) {
         const unregisterAuthObserver = firebase.auth().onAuthStateChanged(async user => {
             await Promise.all([
                 dispatch(getAll()),
-                dispatch(gameUserGet())
+                dispatch(gameGet())
             ]);
 
             if (!user) {

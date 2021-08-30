@@ -3,10 +3,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import gameApi from "api/gameApi";
 
 // USER
-export const gameUserGet = createAsyncThunk('gameSlice/userGet', async () => {
+export const gameGet = createAsyncThunk('gameSlice/userGet', async () => {
     const response = await gameApi.getAll();
     return response;
-})
+});
 
 // ADMIN
 export const adminGet = createAsyncThunk('gameSlice/adminGet', async () => {
@@ -16,11 +16,11 @@ export const adminGet = createAsyncThunk('gameSlice/adminGet', async () => {
 export const gameCreate = createAsyncThunk('gameSlice/gameCreate', async (data) => {
     const response = await gameApi.addMany(data);
     return response;
-})
+});
 export const gameAdminDelete = createAsyncThunk('gameSlice/adminDelete', async (data) => {
     const response = await gameApi.delete(data);
     return response;
-})
+});
 
 const game = createSlice({
     name: 'games',
@@ -36,14 +36,14 @@ const game = createSlice({
         /** userGet
          *  public
          */
-        [gameUserGet.pending]: (state, action) => {
+        [gameGet.pending]: (state, action) => {
             state.user.loading = true;
         },
-        [gameUserGet.rejected]: (state, action) => {
+        [gameGet.rejected]: (state, action) => {
             state.user.loading = false;
             state.user.error = true;
         },
-        [gameUserGet.fulfilled]: (state, action) => {
+        [gameGet.fulfilled]: (state, action) => {
             state.user.loading = false;
             if (action.payload.success === false) {
                 state.user.error = action.payload.message;

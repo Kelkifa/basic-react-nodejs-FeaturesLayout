@@ -19,6 +19,10 @@ export const adminAddProduct = createAsyncThunk('product/adminAddProduct', async
     const response = await productApi.add(data);
     return response;
 })
+export const updateProduct = createAsyncThunk('product/updateProduct', async (data) => {
+    const response = await productApi.update(data);
+    return response;
+})
 export const deleteProducts = createAsyncThunk('product/deleteProducts', async (data) => {
     const response = await productApi.delete(data);
     return response;
@@ -132,6 +136,23 @@ const product = createSlice({
             return state;
         },
 
+        /** Update
+         *  Private
+         */
+        [updateProduct.fulfilled]: (state, action) => {
+            // Fail
+            if (action.payload.success === false)
+                return state;
+
+            // Get index of product need to update
+            const updatedProduct = action.payload.response;
+            const updateProductIndex = state.admin.list.data.findIndex(value => value._id === updatedProduct._id);
+            if (updateProductIndex === -1) return state;
+
+            // Success
+            state.admin.list.data.splice(updateProductIndex, 1, updatedProduct);
+            return state;
+        },
         /** DELETE
          *  Private
          */

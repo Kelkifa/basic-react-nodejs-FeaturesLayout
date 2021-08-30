@@ -5,7 +5,8 @@ var mongoose_delete = require('mongoose-delete');
 
 const games = new Schema(
     {
-        img: { type: String }
+        data: { type: String, required: true },
+        type: { type: String, enum: ['video', 'image'], default: 'image' },
     },
     {
         timestamps: true

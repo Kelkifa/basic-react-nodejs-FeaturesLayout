@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from "react";
 
 import AdminTable from "features/Admin/components/AdminTable";
+import {Link} from "react-router-dom";
 import {deleteProducts} from "features/Product/productSlice";
 import {numberToCost} from "assets/cores/cores";
 import {useSelector} from "react-redux";
@@ -68,7 +69,12 @@ function ProductList(props) {
 					<td>{product.createdAt}</td>
 					<td>{product.updatedAt}</td>
 					<td>
-						<div className="custom-link">Update</div>
+						<Link
+							to={`/admin/products/${product._id}/update`}
+							className="custom-link"
+						>
+							Update
+						</Link>
 						<div className="custom-link"> Delete</div>
 					</td>
 				</tr>

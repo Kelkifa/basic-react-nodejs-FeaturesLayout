@@ -30,7 +30,11 @@ POST http://localhost:8080/api/games
 Content-Type: application/json
 
 {
-    "img":"https://scontent-hkg4-1.xx.fbcdn.net/v/t1.15752-9/236459746_1032061220899818_5628993113883529153_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=ae9488&_nc_ohc=w61tuoNFUDIAX9fB1UN&_nc_ht=scontent-hkg4-1.xx&oh=a5af8dd65b288f024d1519f2fd015b60&oe=614979A9"
+    "data":[
+        {"data":"ZrkTftuWHTI", "type":"video"},
+        {"data":"SH34HdUOXnU", "type":"video"},
+        {"data":"dyH2R_r5McA", "type":"video"}
+    ]
 }
 ###
 
@@ -54,3 +58,7 @@ PATCH http://localhost:8080/api/products/restore
 
 ### product adminGet
 GET http://localhost:8080/api/products/adminGet
+
+### update game type
+
+POST http://localhost:8080/api/games/getTest

@@ -38,6 +38,48 @@ class ProductController {
             return res.status(500).json({ success: false, message: 'Internal Server' });
         }
     }
+    /** [PUT] /api/products/update
+     *  Update a products
+     *  private
+     */
+    async update(req, res) {
+        const { data, id } = req.body;
+
+        if (!data) return res.status(400).json({ success: false, message: 'bad request' });
+
+        const shapeNames = textareaDataToArray(data.shapeNames);
+        const shapeLinks = textareaDataToArray(data.shapeLinks);
+
+        const colorNames = textareaDataToArray(data.colorNames);
+        const colorLinks = textareaDataToArray(data.colorLinks);
+
+        if (shapeNames.length !== shapeLinks.length || colorNames.length !== colorLinks.length)
+            return res.status(400).json({ success: false, message: 'bad request' });
+
+        try {
+
+            const shapes = shapeNames.map((shapeName, index) => ({ name: shapeName, img: shapeLinks[index] }));
+            const colors = colorNames.map((colorName, index) => ({ name: colorName, img: colorLinks[index] }));
+
+            const newData = {
+                name: data.name,
+                description: data.description,
+                position: data.position,
+                type: data.type,
+                cost: parseInt(data.cost.toString().replace('.', '')),
+                img: textareaDataToArray(data.img),
+                shapes,
+                colors
+            }
+
+            const response = await productModel.findOneAndUpdate({ _id: id }, newData, { new: true });
+            console.log('[updated response]', response);
+            return res.json({ success: true, message: 'successfully', response });
+        } catch (err) {
+            console.log(err)
+            return res.status(500).json({ success: false, message: 'internal server' });
+        }
+    }
 
     /**[PATCH] /api/products/delete
      * Sort delete one or more products
@@ -123,7 +165,7 @@ class ProductController {
                 description: data.description,
                 position: data.position,
                 type: data.type,
-                cost: parseInt(data.cost.replace('.', '')),
+                cost: parseInt(data.cost.toString().replace('.', '')),
                 img: textareaDataToArray(data.img),
                 shapes,
                 colors

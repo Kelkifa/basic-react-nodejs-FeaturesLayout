@@ -14,6 +14,10 @@ const productApi = {
 
         return axiosClient.post(url, data);
     },
+    update: (data) => {
+        const url = '/products/update';
+        return axiosClient.put(url, data);
+    },
     delete: (data) => {
         const url = '/products/delete';
         return axiosClient.patch(url, data);

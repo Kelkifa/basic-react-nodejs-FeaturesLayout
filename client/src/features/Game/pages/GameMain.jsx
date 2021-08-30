@@ -20,9 +20,21 @@ function GameMain(props) {
 		<div className="game-main">
 			<h3>Bờ lay tu ghe đờ</h3>
 			<div className="game-main__img-container">
-				{gameInfo.data.map(data => (
-					<div key={data._id} className="game-main__img-container__img">
-						<img src={data.img} alt="err" />
+				{gameInfo.data.map(value => (
+					<div key={value._id} className="game-main__img-container__img">
+						{value.type === "image" ? (
+							<img src={value.data} alt="err" />
+						) : (
+							<iframe
+								width="350"
+								height="196"
+								src={`https://www.youtube.com/embed/${value.data}`}
+								title="YouTube video player"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen
+							></iframe>
+						)}
 					</div>
 				))}
 			</div>

@@ -42,7 +42,7 @@ class GameControlelr {
             return res.json({ success: false, message: 'bad request' });
 
         try {
-            const newImgs = data.map(value => { return { img: value } });
+            const newImgs = data.map(value => { return { data: value.data, type: value.type } });
             const newGame = await gameModel.create(newImgs);
             return res.json({ success: true, message: 'successfully', response: newGame });
 
@@ -63,6 +63,22 @@ class GameControlelr {
         try {
             await gameModel.deleteMany({ _id: { $in: data } });
             return res.json({ success: true, message: 'successfully', response: data });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({ success: false, message: 'internal server' });
+        }
+    }
+
+    /** [POST] /api/games/getTest
+     *  change game schema
+     *  private
+     */
+    async getTest(req, res) {
+        const { data } = req.body;
+        try {
+            const response = await gameModel.findOne({ _id: "612cf26d749dbd125c00c694" });
+            console.log(response)
+            return res.json({ success: true, message: 'successfully' });
         } catch (err) {
             console.log(err);
             return res.status(500).json({ success: false, message: 'internal server' });
