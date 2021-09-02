@@ -5,46 +5,80 @@ import * as yup from "yup";
 import {FastField, Formik} from "formik";
 import React, {useState} from "react";
 
+import AdminNotifice from "features/Admin/components/AdminNotifice";
 import InputField from "components/Form/InputField";
 import LoadNotifice from "components/Dialog/LoadNotifice";
-import gameApi from "api/gameApi";
 import {gameCreate} from "../gameSlice";
 import {useDispatch} from "react-redux";
 
 const schema = yup.object().shape({
-	imgs: yup.string().required("This field is required"),
+	data: yup.string().required("This field is required"),
+	type: yup.string().oneOf(["image", "video"]).required(""),
 });
 
 function GameCreate(props) {
 	const dispatch = useDispatch();
-	const [dialog, setDialog] = useState({loading: false, error: null});
+	const [notifice, setNotifice] = useState({
+		loading: false,
+		error: null,
+		message: null,
+		isShow: false,
+	});
 
 	// HANDLE FUNCTIONS
 	const handleSubmit = async values => {
-		let newDialog = {...dialog};
-		newDialog.loading = true;
-		setDialog(newDialog);
+		setNotifice({
+			loading: true,
+			error: null,
+			message: null,
+			isShow: false,
+		});
 
-		const data = values.imgs.split("\n");
+		const newGame = {data: values.data.split("\n"), type: values.type};
 		try {
-			const response = await dispatch(gameCreate({data}));
-			console.log(response);
+			const response = await dispatch(gameCreate({data: newGame}));
+
+			if (!response.payload.success) {
+				setNotifice({
+					isShow: true,
+					loading: false,
+					error: true,
+					message: response.payload.message,
+				});
+			}
+
+			setNotifice({
+				isShow: true,
+				loading: false,
+				error: false,
+				message: `${
+					values.type == "image"
+						? "Thêm hình ảnh thành công"
+						: "Thêm video thành công"
+				}`,
+			});
 		} catch (error) {
 			console.log(error);
+			setNotifice({
+				isShow: true,
+				loading: false,
+				error: true,
+				message: error.message,
+			});
 		}
-
-		newDialog = {...dialog};
-		setDialog(newDialog);
 	};
 
 	return (
 		<div className="admin-create">
-			<div className="admin-layout-fluid admin-create__notifice">loi roi</div>
+			<AdminNotifice
+				className="admin-layout-fluid admin-create__notifice"
+				notificeInfo={notifice}
+			/>
 			<div className="admin-layout-fluid admin-create__content">
 				<h3 className="admin-create__content__header">Create Game Image</h3>
 
 				<Formik
-					initialValues={{imgs: ""}}
+					initialValues={{imgs: "", type: "image"}}
 					validationSchema={schema}
 					onSubmit={handleSubmit}
 				>
@@ -66,10 +100,20 @@ function GameCreate(props) {
 								className="grid admin-create__content__form"
 							>
 								<FastField
+									name="type"
+									label="type"
+									inputEle="select"
+									options={[
+										{value: "image", label: "Image"},
+										{value: "video", label: "Video"},
+									]}
+									component={InputField}
+								/>
+								<FastField
 									className=""
-									name="imgs"
-									placeholder="Image 1&#10;Image 2&#10; ..."
-									label="Image"
+									name="data"
+									placeholder="Data 1&#10;Data 2&#10; ..."
+									label="Data"
 									component={InputField}
 									inputEle="textarea"
 								/>
@@ -86,7 +130,6 @@ function GameCreate(props) {
 					}}
 				</Formik>
 			</div>
-			{dialog.loading && <LoadNotifice />}
 		</div>
 	);
 }

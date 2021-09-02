@@ -97,7 +97,7 @@ const game = createSlice({
             if (!action.payload.success) {
                 return state;
             }
-            state.admin.list.data.push(action.payload.response);
+            state.admin.list.data = state.admin.list.data.concat(action.payload.response);
             return state;
         },
         /** Game delete

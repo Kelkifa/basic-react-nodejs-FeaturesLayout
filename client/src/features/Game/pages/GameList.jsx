@@ -1,24 +1,68 @@
 import "./gameList.scss";
 
+import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+
 import AdminTable from "features/Admin/components/AdminTable";
-import React from "react";
+import {Link} from "react-router-dom";
+import MyTooltip from "components/MyTooltip";
 import {gameAdminDelete} from "../gameSlice";
-import {useSelector} from "react-redux";
 
 function GameList(props) {
+	const dispatch = useDispatch();
 	const gameInfo = useSelector(state => state.games.admin.list);
-	const tableHeaders = [
-		"indedx",
-		"Id",
-		"Image",
-		"Image address",
-		"CreatedAt",
-		"Options",
-	];
+	const tableHeaders = ["indedx", "Id", "Image", "CreatedAt", "Options"];
 	const gameIds = gameInfo.data.map(value => value._id);
 
-	const handleDelete = data => {
-		return gameAdminDelete({data});
+	const [notifice, setNotifice] = useState({
+		isShow: false,
+		message: null,
+		loading: false,
+		error: null,
+	});
+
+	// HANDLE FUNCTIONS
+	const handleDelete = async data => {
+		if (!data.length) {
+			setNotifice({
+				isShow: true,
+				message: "Bạn chưa chọn hình ảnh để xoá",
+				loading: false,
+				error: true,
+			});
+			return;
+		}
+		setNotifice({isShow: false, message: null, loading: true, error: null});
+
+		try {
+			const response = await dispatch(gameAdminDelete({data}));
+
+			// Notifice
+			if (!response.payload.success) {
+				setNotifice({
+					isShow: true,
+					message: response.payload.message,
+					error: true,
+					loading: false,
+				});
+				return;
+			}
+
+			// Success
+			setNotifice({
+				isShow: true,
+				message: `Xoá thành công (${data.length})`,
+				error: false,
+				loading: false,
+			});
+		} catch (err) {
+			setNotifice({
+				isShow: true,
+				message: err.message,
+				loading: false,
+				error: true,
+			});
+		}
 	};
 	return (
 		<AdminTable
@@ -26,6 +70,7 @@ function GameList(props) {
 			header={{title: "Game List", content: "Danh sách hình ảnh game"}}
 			idList={gameIds}
 			pageType="list"
+			notifice={notifice}
 			dataInfo={{
 				loading: gameInfo.loading,
 				error: gameInfo.error,
@@ -34,23 +79,47 @@ function GameList(props) {
 			adminHandleDelete={handleDelete}
 		>
 			{gameInfo.data.map((game, index) => (
-				<tr dataId={game._id} key={game._id}>
+				<tr key={game._id} dataId={game._id}>
 					<td>{index + 1}</td>
 					<td>{game._id}</td>
 					<td>
 						<div className="game-list__img">
 							{game.type === "image" ? (
-								<img src={game.data} alt="fail" />
+								<MyTooltip text={game.data}>
+									{props => {
+										const {handleMouseOver, handleMouseOut} = props;
+
+										return (
+											<img
+												onMouseMove={handleMouseOver}
+												onMouseOut={handleMouseOut}
+												src={game.data}
+												alt="fail"
+											/>
+										);
+									}}
+								</MyTooltip>
 							) : (
 								game.data
 							)}
 						</div>
 					</td>
-					<td>{game.img}</td>
 					<td>{game.createdAt}</td>
 					<td>
-						<div className="custom-link">Update</div>
-						<div className="custom-link">Delete</div>
+						<Link
+							to={`/admin/games/${game._id}/update`}
+							className="custom-link"
+						>
+							Update
+						</Link>
+						<div
+							className="custom-link"
+							onClick={() => {
+								handleDelete([game._id]);
+							}}
+						>
+							Delete
+						</div>
 					</td>
 				</tr>
 			))}

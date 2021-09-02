@@ -18,7 +18,7 @@ const cart = createSlice({
     initialState: {
         loading: true,
         error: null,
-        carts: [],
+        data: [],
     },
     reducers: {},
     extraReducers: {
@@ -28,6 +28,7 @@ const cart = createSlice({
         },
         [getCarts.rejected]: (state, action) => {
             state.loading = false;
+            console.log(action);
             state.error = true;
         },
         [getCarts.fulfilled]: (state, action) => {
@@ -38,7 +39,7 @@ const cart = createSlice({
                 return state;
             }
             state.error = false;
-            state.carts = action.payload.data;
+            state.data = action.payload.data;
             return state;
         },
 
@@ -58,7 +59,7 @@ const cart = createSlice({
             }
             console.log("[CART SLIDE]", state.carts);
             state.error = false;
-            state.carts.unshift(action.payload.response);
+            state.data.unshift(action.payload.response);
             return state;
         },
     }

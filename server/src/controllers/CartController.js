@@ -12,8 +12,8 @@ class CartController {
             return res.status(500).json({ success: false, message: 'need to login' });
 
         try {
-            const response = await cartModel.find({ userId: userInfo.uid });;
-
+            const response = await cartModel.find({ userId: userInfo.uid }).populate('productId').sort({ updatedAt: 'desc' });
+            console.log('[cart]', response);
             return res.json({
                 success: true,
                 message: 'successfully',
@@ -30,9 +30,9 @@ class CartController {
      * loged
      */
     async add(req, res) {
-        const data = req.body;
+        const { data } = req.body;
         const userInfo = req.userInfo;
-        if (!data || !userInfo.uid) return;
+        if (!data.shape || !data.color) return res.status(400).json({ success: false, message: 'bad request' });
         data.userId = userInfo.uid;
 
         try {
@@ -47,10 +47,10 @@ class CartController {
                 return res.status(400).json({ success: false, message: 'bad request' });
 
             // OK
-            const newCart = new cartModel(data);
-            const savedCart = await newCart.save();
+            const savedCart = await cartModel.create(data);
+            const populatedSavedCart = await savedCart.populate('productId').execPopulate();
 
-            return res.json({ success: true, message: 'successfully', response: savedCart });
+            return res.json({ success: true, message: 'successfully', response: populatedSavedCart });
 
         } catch (err) {
             console.log(err);

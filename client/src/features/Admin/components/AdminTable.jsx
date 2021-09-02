@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-
+import AdminNotifice from "./AdminNotifice";
 import {Formik} from "formik";
 import LoadNotifice from "components/Dialog/LoadNotifice";
 import PropTypes from "prop-types";
+import React from "react";
 import Table from "components/Table/Table";
 import {useDispatch} from "react-redux";
 
@@ -12,6 +12,7 @@ AdminTable.propTypes = {
 	idList: PropTypes.array,
 	pageType: PropTypes.string,
 	dataInfo: PropTypes.object,
+	notifice: PropTypes.object,
 
 	adminHandleRestore: PropTypes.func,
 	adminHandleDelete: PropTypes.func,
@@ -22,13 +23,18 @@ AdminTable.defaultProps = {
 	idList: [],
 	pageType: "list",
 	dataInfo: {loading: false, error: null, process: null},
+	notifice: {
+		isShow: false,
+		message: null,
+		loading: false,
+		error: null,
+	},
 
 	adminHandleRestore: null,
 	adminHandleDelete: null,
 };
 
 function AdminTable(props) {
-	const dispatch = useDispatch();
 	// PROPS
 	const {
 		children = [],
@@ -36,79 +42,21 @@ function AdminTable(props) {
 		tableHeaders,
 		header,
 		idList,
+		notifice,
 		dataInfo,
 		adminHandleDelete,
 		adminHandleRestore,
 	} = props;
-	// STATES
-	const [notifice, setNotifice] = useState({
-		isShow: false,
-		message: null,
-		loading: false,
-		error: null,
-	});
+
 	// HANDLE FUNCTIONS
-	const handleSubmit = async values => {
-		// return;
-		let newNotifice = {...notifice};
-		newNotifice.isShow = false;
-		newNotifice.loading = true;
-		setNotifice({...newNotifice});
-
-		try {
-			if (values.submit === "restore" && adminHandleRestore) {
-				const response = await dispatch(
-					adminHandleRestore(values.selectedInputs)
-				);
-
-				if (response.payload.success === false) {
-					newNotifice.error = false;
-					newNotifice.message = `Không thể khôi phục: ${values.selectedInputs.length} (${response.payload.message})`;
-					newNotifice.loading = false;
-					newNotifice.isShow = true;
-					setNotifice(newNotifice);
-					return;
-				}
-
-				newNotifice.error = false;
-				newNotifice.loading = false;
-				newNotifice.isShow = true;
-				newNotifice.message = `khôi phục thành công: ${values.selectedInputs.length} (${response.payload.message})`;
-				setNotifice(newNotifice);
-
-				return;
-			}
-			if (!adminHandleDelete) {
-				newNotifice.error = true;
-				newNotifice.loading = false;
-				newNotifice.isShow = true;
-				newNotifice.message = "Client error !";
-				setNotifice({...newNotifice});
-				return;
-			}
-			const response = await dispatch(adminHandleDelete(values.selectedInputs));
-
-			if (response.payload.success === false) {
-				newNotifice.error = true;
-				newNotifice.loading = false;
-				newNotifice.isShow = true;
-				newNotifice.message = `Xoá không thành công: ${values.selectedInputs.length} (${response.payload.message})`;
-				setNotifice(newNotifice);
-				return;
-			}
-
-			newNotifice.error = false;
-			newNotifice.isShow = true;
-			newNotifice.loading = false;
-			newNotifice.message = `Xoá thành công: ${values.selectedInputs.length} (${response.payload.message})`;
-			setNotifice(newNotifice);
-		} catch (err) {
-			newNotifice.loading = false;
-			newNotifice.error = true;
-			newNotifice.message = err.message;
-			newNotifice.isShow = true;
-			setNotifice(newNotifice);
+	const handleSubmit = values => {
+		if (values.submit === "restore" && adminHandleRestore) {
+			adminHandleRestore(values.selectedInputs);
+			return;
 		}
+		if (!adminHandleDelete) return;
+
+		adminHandleDelete(values.selectedInputs);
 	};
 
 	// RENDER
@@ -127,7 +75,7 @@ function AdminTable(props) {
 		processElement = (
 			<tr>
 				<td style={{textAlign: "center"}} colSpan={tableHeaders.length + 1}>
-					{dataInfo.error}
+					Internal Server (Status code 500)
 				</td>
 			</tr>
 		);
@@ -143,17 +91,10 @@ function AdminTable(props) {
 
 	return (
 		<div className="admin-list">
-			{notifice.isShow && (
-				<div
-					className={
-						notifice.error
-							? "admin-list__notifice admin-layout-fluid custom-text--dange"
-							: "admin-list__notifice admin-layout-fluid custom-text--success"
-					}
-				>
-					{notifice.message}
-				</div>
-			)}
+			<AdminNotifice
+				notificeInfo={notifice}
+				className="admin-list__notifice admin-layout-fluid"
+			/>
 
 			<div className="admin-list__content admin-layout-fluid">
 				<Formik
@@ -219,7 +160,7 @@ function AdminTable(props) {
 													setFieldValue("selectedInputs", []);
 												}}
 												checked={
-													values.selectedInputs.length === 2 ||
+													values.selectedInputs.length === idList.length ||
 													values.selectAllInput[0] == "1"
 														? true
 														: false
@@ -269,7 +210,6 @@ function AdminTable(props) {
 					}}
 				</Formik>
 			</div>
-			{notifice.loading && <LoadNotifice></LoadNotifice>}
 		</div>
 	);
 }

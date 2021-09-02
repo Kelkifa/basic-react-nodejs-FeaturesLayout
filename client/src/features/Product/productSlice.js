@@ -1,3 +1,4 @@
+import { AiOutlineConsoleSql } from "react-icons/ai";
 import productApi from "api/productApi";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
@@ -70,6 +71,7 @@ const product = createSlice({
         [getAll.rejected]: (state, action) => {
             state.user.loading = false;
             state.user.error = true;
+            console.log(action);
         },
         [getAll.fulfilled]: (state, action) => {
             state.user.loading = false;

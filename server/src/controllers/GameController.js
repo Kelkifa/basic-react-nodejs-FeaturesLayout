@@ -8,7 +8,6 @@ class GameControlelr {
     async index(req, res) {
         try {
             const response = await gameModel.find({}).sort({ createdAt: 'desc' });
-            console.log('vo r');
             return res.json({ success: true, message: 'successfully', response });
         } catch (err) {
             console.log(err);
@@ -37,13 +36,16 @@ class GameControlelr {
     */
     async addMany(req, res) {
         const { data } = req.body;
-
-        if (!data.length)
+        if (!data)
+            return res.json({ success: false, message: 'bad request' });
+        if (!data.data.length)
             return res.json({ success: false, message: 'bad request' });
 
         try {
-            const newImgs = data.map(value => { return { data: value.data, type: value.type } });
-            const newGame = await gameModel.create(newImgs);
+            const newData = data.data.map(value => { return { data: value, type: data.type } });
+            const newGame = await gameModel.create(newData);
+            console.log(newGame);
+
             return res.json({ success: true, message: 'successfully', response: newGame });
 
         } catch (err) {

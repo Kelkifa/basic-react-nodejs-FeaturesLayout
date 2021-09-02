@@ -3,20 +3,22 @@ import "./detail.scss";
 
 import React, {useRef, useState} from "react";
 
-import AddCartForm from "../components/AddCartForm";
+import AddCartForm from "features/Cart/components/AddCartForm";
 import ImageShow from "../components/ImageShow";
 import {numberToCost} from "../../../assets/cores/cores";
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 
+// import AddCartForm from "../components/AddCartForm";
+
+// import AddCartForm from "../components/AddCartForm";
+
 function Detail(props) {
 	// PARAMS
 	const {id: idParam} = useParams();
-	console.log({idParam});
 
 	const productInfo = useSelector(state => {
 		const productInfo = state.products.user;
-		console.log(productInfo);
 		return {
 			loading: productInfo.loading,
 			error: productInfo.error,
@@ -25,7 +27,6 @@ function Detail(props) {
 				productInfo.data.find(value => value._id === idParam),
 		};
 	});
-	console.log(productInfo);
 
 	const [optionImg, setOptionImg] = useState("");
 
@@ -57,12 +58,6 @@ function Detail(props) {
 								{numberToCost(productInfo.data.cost)}đ
 							</div>
 							<AddCartForm
-								initialValues={{
-									shape: null,
-									color: null,
-									soLuong: 0,
-									productId: idParam,
-								}}
 								shapes={productInfo.data.shapes}
 								colors={productInfo.data.colors}
 								productId={idParam}

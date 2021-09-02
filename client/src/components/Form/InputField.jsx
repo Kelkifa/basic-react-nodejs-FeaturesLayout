@@ -11,7 +11,7 @@ InputField.propTypes = {
 	label: PropTypes.string,
 	placeHolder: PropTypes.string,
 	type: PropTypes.string,
-	inputEle: PropTypes.string,
+	inputEle: PropTypes.string, //select or input or textarea
 	className: PropTypes.string,
 	options: PropTypes.array,
 
@@ -28,6 +28,7 @@ InputField.defaultProps = {
 	setError: null,
 };
 
+// SELECT INPUT STYLES
 const customStyles = {
 	control: (provided, state) => ({
 		...provided,

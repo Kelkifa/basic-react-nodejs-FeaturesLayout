@@ -16,7 +16,6 @@ function GameAdmin(props) {
 		const fetchGameList = async () => {
 			try {
 				const response = await dispatch(adminGet());
-				console.log(response);
 			} catch (err) {
 				console.log(err);
 			}

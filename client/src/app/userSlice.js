@@ -13,13 +13,13 @@ const userSlice = createSlice({
     initialState: {
         loading: false,
         error: null,
-        userInfo: {},
+        data: {},
     },
     reducers: {
         userLogout: (state, action) => {
             state.loading = false;
             state.error = null;
-            state.userInfo = {};
+            state.data = {};
             return state;
         }
     },
@@ -34,7 +34,7 @@ const userSlice = createSlice({
         [getMe.fulfilled]: (state, action) => {
             state.loading = false;
             state.error = false
-            state.userInfo = action.payload;
+            state.data = action.payload;
         },
     }
 });

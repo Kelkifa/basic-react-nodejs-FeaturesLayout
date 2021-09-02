@@ -1,15 +1,24 @@
-import React, {useContext, useEffect} from "react";
+import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
 import AdminTable from "features/Admin/components/AdminTable";
 import {Link} from "react-router-dom";
 import {deleteProducts} from "features/Product/productSlice";
 import {numberToCost} from "assets/cores/cores";
-import {useSelector} from "react-redux";
 
 ProductList.propTypes = {};
 
 function ProductList(props) {
+	const dispatch = useDispatch();
 	const productInfo = useSelector(state => state.products.admin.list);
+
+	// States
+	const [notifice, setNotifice] = useState({
+		isShow: false,
+		message: null,
+		loading: false,
+		error: null,
+	});
 
 	const productTableHeaders = [
 		"Stt",
@@ -31,8 +40,47 @@ function ProductList(props) {
 	const productIdList = productInfo.data.map(product => product._id);
 
 	// id of products will been deleted
-	const handleDelete = data => {
-		return deleteProducts({data});
+	const handleDelete = async data => {
+		if (!data.length) {
+			setNotifice({
+				isShow: true,
+				message: "Bạn chưa chọn sản phẩm để xoá",
+				loading: false,
+				error: true,
+			});
+			return;
+		}
+		setNotifice({isShow: false, message: null, loading: true, error: null});
+
+		try {
+			const response = await dispatch(deleteProducts({data}));
+
+			// Notifice
+			if (!response.payload.success) {
+				setNotifice({
+					isShow: true,
+					message: response.payload.message,
+					error: true,
+					loading: false,
+				});
+				return;
+			}
+
+			// Success
+			setNotifice({
+				isShow: true,
+				message: `Xoá thành công (${data.length})`,
+				error: false,
+				loading: false,
+			});
+		} catch (err) {
+			setNotifice({
+				isShow: true,
+				message: err.message,
+				loading: false,
+				error: true,
+			});
+		}
 	};
 	// RENDER
 	return (
@@ -42,6 +90,7 @@ function ProductList(props) {
 			tableHeaders={productTableHeaders}
 			adminHandleDelete={handleDelete}
 			dataInfo={{loading: productInfo.loading, error: productInfo.error}}
+			notifice={notifice}
 		>
 			{productInfo.data.map((product, index) => (
 				<tr dataId={product._id} key={product._id}>
@@ -75,7 +124,14 @@ function ProductList(props) {
 						>
 							Update
 						</Link>
-						<div className="custom-link"> Delete</div>
+						<div
+							onClick={() => {
+								handleDelete([product._id]);
+							}}
+							className="custom-link"
+						>
+							Delete
+						</div>
 					</td>
 				</tr>
 			))}
