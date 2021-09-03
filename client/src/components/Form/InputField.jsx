@@ -130,7 +130,7 @@ function InputField(props) {
 
 	return (
 		<div className={`${className} input-field`}>
-			<label htmlFor={field.name}>{label}</label>
+			{label && <label htmlFor={field.name}>{label}</label>}
 			{inputField}
 			<div className="input-field__error custom-text--dange">
 				{setError ? setError : form.errors[field.name]}

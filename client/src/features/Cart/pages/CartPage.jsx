@@ -13,6 +13,7 @@ function CartPage(props) {
 	const initialValues = {
 		selectedAll: [],
 		selectedList: [],
+		soLuong: carts.data.map(cart => cart.soLuong),
 	};
 	// HANDLE FUNCTIONS
 	const handleSubmit = values => {
@@ -71,10 +72,24 @@ function CartPage(props) {
 										<div>Tổng số lượng sản phẩm</div>
 										<div>
 											<span>(</span>
-											<span>0</span>
+											<span>{values.selectedList.length}</span>
 											<span> sản phẩm)</span>
 										</div>
-										<div className="cart__control__right__cost">0đ</div>
+										<div className="cart__control__right__cost">
+											{numberToCost(
+												carts.data.reduce((total, cart, index) => {
+													if (values.selectedList.indexOf(cart._id) !== -1) {
+														return (
+															total +
+															cart.productId.cost *
+																parseInt(values.soLuong[index])
+														);
+													}
+													return total;
+												}, 0)
+											)}
+											đ
+										</div>
 										<button
 											type="submit"
 											className="cart__control__right__buy custom-btn__buy"
@@ -99,7 +114,7 @@ function CartPage(props) {
 											"Lựa chọn",
 										]}
 									>
-										{carts.data.map(cart => (
+										{carts.data.map((cart, index) => (
 											<tr key={cart._id}>
 												<td>
 													<input
@@ -128,9 +143,30 @@ function CartPage(props) {
 												<td className="cost-style">
 													{numberToCost(cart.productId.cost)}
 												</td>
-												<td>{cart.soLuong}</td>
+												<td>
+													<input
+														type="number"
+														name="soLuong"
+														value={values.soLuong[index]}
+														onChange={e => {
+															const newSoLuong = [...values.soLuong];
+															newSoLuong[index] = parseInt(e.target.value);
+															handleChange({
+																target: {name: "soLuong", value: newSoLuong},
+															});
+														}}
+														onBlur={handleBlur}
+														style={{
+															width: "40px",
+															border: "1px solid rgba(0, 0, 0, 0.226)",
+															outline: "none",
+														}}
+													/>
+												</td>
 												<td className="cost-style">
-													{numberToCost(cart.soLuong * cart.productId.cost)}
+													{numberToCost(
+														values.soLuong[index] * cart.productId.cost
+													)}
 												</td>
 												<td>
 													<button className="custom-link">Delete</button>

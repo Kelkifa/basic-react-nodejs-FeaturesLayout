@@ -17,7 +17,7 @@ function Table(props) {
 	// RENDER
 	return (
 		<div className="custom-scroll">
-			<table className="component-table">
+			<table className="component-table" style={{width: "100%"}}>
 				<thead>
 					<tr>
 						{headerList.map(header => (
